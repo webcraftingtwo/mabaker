@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Build a cake — Proof Bakehouse</title>
+<title>Build a cake — Melithea’s Bakes</title>
+<meta name="description" content="Build a whole cake with Melithea’s Bakes: pick a size, a sponge, a filling and a finish, and we'll sketch it before it goes near the oven. From $95, 72 hours notice.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C4485D'/%3E%3Cpath d='M6 14h20v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z' fill='%23FBF3E2'/%3E%3Crect x='6' y='17.5' width='20' height='3.5' fill='%23EFB43A'/%3E%3Ccircle cx='16' cy='10' r='4' fill='%23EFB43A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Karla:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -17,6 +19,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 svg{display:block}
+a{color:inherit}
 :focus-visible{outline:3px solid var(--butter);outline-offset:3px}
 ::selection{background:var(--butter)}
 
@@ -87,6 +90,7 @@ svg{display:block}
 .btn-cream{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--ink)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+.btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:0 5px 0 var(--ink)}
 
 /* docket */
 .docket{background:var(--paper);border:2px solid var(--ink);border-radius:4px;box-shadow:6px 7px 0 rgba(51,36,28,.16);padding:22px 22px 20px;position:relative;transform:rotate(-.5deg)}
@@ -109,14 +113,17 @@ svg{display:block}
 footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);padding:22px clamp(16px,4vw,46px) 30px}
 .foot-in{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:13.5px;color:rgba(251,243,226,.72)}
 .foot-in a{color:var(--butter)}
+.foot-nav{display:flex;gap:16px;flex-wrap:wrap}
+.foot-nav a{color:rgba(251,243,226,.78);text-decoration:none}
+.foot-nav a:hover{color:var(--butter)}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
 <div class="bar">
-  <a class="plaque" href="#"><span class="nm">Proof</span><span class="sub">Bakehouse</span></a>
-  <a class="back" href="#">← back to today's bake</a>
+  <a class="plaque" href="index.html"><span class="nm">Melithea’s</span><span class="sub">Bakes</span></a>
+  <a class="back" href="index.html#shop">← back to today's bake</a>
 </div>
 
 <header class="head">
@@ -200,7 +207,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
         <div class="ref">no. 0248 · 72 hours notice</div>
         <div id="lines"></div>
         <div class="total"><span class="k">all in</span><span class="v" id="dtotal">$135</span></div>
-        <div class="navrow"><button class="btn btn-yolk" id="send">Send it to the bakers</button><button class="btn btn-cream" data-go="0">Start again</button></div>
+        <div class="navrow"><button class="btn btn-yolk" id="send">Send it to the bakers</button><button class="btn btn-cream" id="restart" data-go="0">Start again</button></div>
         <div class="sent" id="sent">
           <span class="stamp">ON THE BOARD</span>
           <p>We'll sketch it and email you by tomorrow lunchtime.</p>
@@ -214,7 +221,13 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 <div class="scallop"></div>
 <footer>
   <div class="foot-in">
-    <span>14 Mill Row · Tue–Fri 10–4, Sat–Sun 9–3 · <a href="#">hello@proofbakehouse.com</a></span>
+    <span>14 Mill Row · Tue–Fri 10–4, Sat–Sun 9–3 · <a href="mailto:hello@melitheasbakes.com">hello@melitheasbakes.com</a></span>
+    <span class="foot-nav">
+      <a href="index.html#shop">today's bake</a>
+      <a href="lemon-curd-tart.html">lemon curd tart</a>
+      <a href="index.html#bench">the bench</a>
+      <a href="index.html#visit">visit</a>
+    </span>
     <span>Cakes travel in a fitted box, by bicycle, before 4pm.</span>
   </div>
 </footer>
@@ -247,7 +260,8 @@ const DATA = {
   ]
 };
 
-const pick = { size:'two', sponge:'vanilla', filling:'jam', finish:'naked' };
+const DEFAULTS = { size:'two', sponge:'vanilla', filling:'jam', finish:'naked' };
+const pick = Object.assign({}, DEFAULTS);
 let step = 0, message = '';
 
 const get = (k) => DATA[k].find(o => o.id === pick[k]);
@@ -266,6 +280,7 @@ Object.keys(DATA).forEach(k => {
     pick[b.dataset.k] = b.dataset.id;
     box.querySelectorAll('.o').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
+    clearSent();
     render();
   });
 });
@@ -385,10 +400,32 @@ document.addEventListener('click', e => {
   if(s) goto(+s.dataset.s);
 });
 
-document.getElementById('msg').addEventListener('input', e => { message = e.target.value; render(); });
-document.getElementById('send').addEventListener('click', () => {
+document.getElementById('msg').addEventListener('input', e => { message = e.target.value; clearSent(); render(); });
+
+/* ═══ sending, and starting over ═══ */
+function clearSent(){
+  const send = document.getElementById('send');
+  if(!send.disabled) return;
+  document.getElementById('sent').classList.remove('show');
+  send.disabled = false;
+  send.textContent = 'Send it to the bakers';
+}
+document.getElementById('send').addEventListener('click', function(){
   document.getElementById('sent').classList.add('show');
-  document.getElementById('send').textContent = 'Sent';
+  this.disabled = true;
+  this.textContent = 'Sent';
+});
+document.getElementById('restart').addEventListener('click', () => {
+  Object.assign(pick, DEFAULTS);
+  message = '';
+  document.getElementById('msg').value = '';
+  document.querySelectorAll('.opts .o').forEach(b =>
+    b.classList.toggle('on', pick[b.dataset.k] === b.dataset.id));
+  document.getElementById('sent').classList.remove('show');
+  const send = document.getElementById('send');
+  send.disabled = false;
+  send.textContent = 'Send it to the bakers';
+  render();
 });
 
 render();
