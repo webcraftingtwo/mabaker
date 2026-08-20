@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof Bakehouse — one bake a day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Karla:ital,wght@0,400;0,600;0,800;1,400&family=Permanent+Marker&family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --jam:#C4485D;
+  --jam-dk:#9E3149;
+  --paper:#FBF3E2;
+  --paper-2:#F4E8D0;
+  --kraft:#6B4B36;
+  --kraft-dk:#573A28;
+  --ink:#33241C;
+  --butter:#EFB43A;
+  --pistachio:#8FAE63;
+  --plum:#7C4A6B;
+  --marker:'Permanent Marker', 'Comic Sans MS', cursive;
+  --hand:'Caveat', 'Segoe Script', cursive;
+  --tall:'Amatic SC', 'Impact', sans-serif;
+  --body:'Karla', -apple-system, 'Segoe UI', sans-serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)' opacity='.055'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+svg{display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--butter);outline-offset:3px}
+::selection{background:var(--butter);color:var(--ink)}
+
+/* ══ top bar ══ */
+.bar{
+  background:var(--paper);border-bottom:2px solid rgba(51,36,28,.09);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:12px clamp(16px,4vw,46px);position:sticky;top:0;z-index:50;
+}
+.plaque{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--kraft);color:var(--paper);padding:9px 26px 11px;border-radius:8px 8px 22px 22px;
+  border:2px solid var(--kraft-dk);box-shadow:0 4px 0 rgba(51,36,28,.18);
+  text-decoration:none;transform:rotate(-1deg);
+}
+.plaque .nm{font-family:var(--hand);font-size:27px;font-weight:700;line-height:.9}
+.plaque .sub{font-family:var(--body);font-size:7.5px;letter-spacing:.34em;text-transform:uppercase;opacity:.72;margin-top:4px}
+.links{display:flex;gap:clamp(14px,2.6vw,34px);align-items:center;list-style:none;margin:0;padding:0}
+.links a{
+  font-family:var(--body);font-size:15px;font-weight:600;text-decoration:none;
+  padding-bottom:2px;border-bottom:2px solid transparent;
+}
+.links a:hover{border-bottom-color:var(--jam);color:var(--jam)}
+.boxlink{
+  display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);
+  padding:9px 15px;border-radius:20px;text-decoration:none;font-weight:700;font-size:14px;
+  transform:rotate(1deg);border:0;cursor:pointer;font-family:var(--body);
+}
+.boxlink .n{background:var(--butter);color:var(--ink);border-radius:99px;min-width:20px;padding:0 6px;text-align:center;font-size:12px}
+@media(max-width:780px){.links li:nth-child(-n+3){display:none}}
+
+/* ══ hero ══ */
+.hero{
+  position:relative;background:var(--jam);background-image:var(--grain);
+  padding:clamp(38px,6vw,66px) clamp(16px,4vw,46px) clamp(58px,7vw,92px);
+  color:var(--paper);overflow:hidden;
+}
+.hero-in{
+  max-width:1160px;margin:0 auto;display:grid;
+  grid-template-columns:1.02fr .98fr;gap:clamp(20px,4vw,50px);align-items:center;
+}
+.script{font-family:var(--hand);font-weight:700;line-height:.95}
+.h-1{font-size:clamp(30px,4.4vw,50px);color:var(--butter);transform:rotate(-2.5deg);display:inline-block;margin-bottom:2px}
+.h-2{
+  font-family:var(--marker);font-size:clamp(50px,10.4vw,116px);line-height:.86;
+  margin:0;letter-spacing:-.01em;text-shadow:5px 5px 0 rgba(0,0,0,.13);
+}
+.h-2 .wide{display:block;transform:rotate(-1.2deg)}
+.h-2 .off{display:block;transform:rotate(.9deg) translateX(clamp(6px,2vw,30px))}
+.h-3{font-size:clamp(24px,3.4vw,38px);transform:rotate(-1deg);display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.arrows{display:flex;gap:7px;align-items:center;opacity:.85}
+.hero-note{
+  font-family:var(--body);font-size:15px;line-height:1.65;max-width:38ch;
+  margin:22px 0 26px;color:rgba(251,243,226,.86);
+}
+.hero-btns{display:flex;gap:13px;flex-wrap:wrap}
+.btn{
+  font-family:var(--body);font-weight:800;font-size:15px;cursor:pointer;
+  padding:14px 26px;border-radius:26px;border:2px solid var(--ink);text-decoration:none;
+  display:inline-block;transition:transform .14s ease, box-shadow .14s ease;
+}
+.btn-yolk{background:var(--butter);color:var(--ink);box-shadow:0 5px 0 var(--ink);transform:rotate(-1deg)}
+.btn-cream{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--ink);transform:rotate(1deg)}
+.btn:hover{transform:rotate(0) translateY(-2px);box-shadow:0 7px 0 var(--ink)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+
+.stackwrap{position:relative;display:grid;place-items:center}
+.stackwrap svg{width:min(430px,100%);filter:drop-shadow(0 22px 26px rgba(0,0,0,.28))}
+.speech{
+  position:absolute;top:2%;left:-2%;font-family:var(--hand);font-weight:700;
+  font-size:clamp(17px,2vw,23px);color:var(--ink);background:var(--paper);
+  padding:9px 17px;border-radius:20px 20px 20px 4px;transform:rotate(-6deg);
+  box-shadow:3px 3px 0 rgba(0,0,0,.14);line-height:1.15;text-align:center;
+}
+@media(max-width:880px){
+  .hero-in{grid-template-columns:1fr}
+  .stackwrap{order:-1;margin-bottom:6px}
+  .speech{left:2%}
+}
+
+/* torn paper edges */
+.tear{display:block;width:100%;height:36px;position:relative;margin-top:-1px}
+.tear svg{width:100%;height:100%}
+
+/* ══ three hand-lettered doors ══ */
+.doors{
+  max-width:1060px;margin:0 auto;padding:clamp(26px,4vw,44px) clamp(16px,4vw,46px) clamp(20px,3vw,34px);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,40px);
+}
+.door{text-align:center;text-decoration:none;display:block;transition:transform .16s ease}
+.door:hover{transform:rotate(-1.5deg) scale(1.03)}
+.door .sm{font-family:var(--hand);font-weight:700;font-size:23px;display:block;line-height:1}
+.door .big{font-family:var(--marker);font-size:clamp(23px,3.5vw,38px);line-height:.95;display:block;margin:2px 0 4px}
+.door .tiny{font-family:var(--body);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:.55}
+.d1 .big,.d1 .sm{color:var(--jam)}
+.d2 .big,.d2 .sm{color:var(--butter);text-shadow:1px 1px 0 rgba(51,36,28,.25)}
+.d3 .big,.d3 .sm{color:var(--plum)}
+.door .squiggle{margin:6px auto 0;opacity:.85}
+@media(max-width:700px){.doors{grid-template-columns:1fr;gap:26px}}
+
+.dashrule{
+  max-width:1060px;margin:0 auto;height:2px;
+  background-image:linear-gradient(to right,rgba(51,36,28,.3) 55%,transparent 0);
+  background-size:14px 2px;background-repeat:repeat-x;
+}
+
+/* ══ bench notes ══ */
+.bench{
+  max-width:1060px;margin:0 auto;padding:clamp(28px,4vw,48px) clamp(16px,4vw,46px);
+  display:grid;grid-template-columns:1fr 1fr .84fr;gap:clamp(20px,3.4vw,42px);
+}
+.bench h2{font-family:var(--hand);font-weight:700;font-size:34px;margin:0 0 14px;line-height:1}
+.note{border-bottom:1px dashed rgba(51,36,28,.25);padding-bottom:14px;margin-bottom:14px}
+.note:last-child{border:0}
+.note b{color:var(--jam);font-weight:800;font-size:14px;display:block;margin-bottom:3px}
+.note p{margin:0;font-size:14.5px;line-height:1.6}
+.note .when{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.45;margin-top:6px;display:block}
+.findus li{list-style:none;display:flex;gap:11px;align-items:flex-start;margin-bottom:14px;font-size:14.5px}
+.findus ul{margin:0;padding:0}
+.findus .ic{
+  width:32px;height:32px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;color:var(--paper);
+}
+@media(max-width:820px){.bench{grid-template-columns:1fr}}
+
+/* ══ shop ══ */
+.shop{background:var(--paper-2);background-image:var(--grain);padding:clamp(30px,4vw,50px) clamp(16px,4vw,46px) clamp(50px,6vw,76px)}
+.shophead{max-width:1160px;margin:0 auto 26px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.shophead .ttl{font-family:var(--marker);font-size:clamp(30px,4.6vw,48px);line-height:.92;margin:0;transform:rotate(-1deg)}
+.shophead .say{font-family:var(--hand);font-weight:700;font-size:22px;color:var(--jam);margin:4px 0 0}
+.chips{display:flex;gap:9px;flex-wrap:wrap}
+.chip{
+  font-family:var(--body);font-weight:700;font-size:13.5px;cursor:pointer;
+  padding:8px 15px;border-radius:20px;border:2px solid var(--ink);background:transparent;color:var(--ink);
+  transition:.14s ease;
+}
+.chip:nth-child(2n){transform:rotate(-1.4deg)}
+.chip:nth-child(2n+1){transform:rotate(1deg)}
+.chip:hover{background:rgba(51,36,28,.07)}
+.chip.on{background:var(--ink);color:var(--paper)}
+
+.grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:26px}
+.card{
+  position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:4px;
+  box-shadow:6px 7px 0 rgba(51,36,28,.14);
+  display:flex;flex-direction:column;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.card:nth-child(3n+1){transform:rotate(-.9deg)}
+.card:nth-child(3n+2){transform:rotate(.7deg)}
+.card:nth-child(3n){transform:rotate(-.4deg)}
+.card:hover{transform:rotate(0) translateY(-5px);box-shadow:8px 12px 0 rgba(51,36,28,.2)}
+.card.hide{display:none}
+.tape{
+  position:absolute;top:-13px;left:50%;width:78px;height:24px;margin-left:-39px;
+  background:rgba(239,180,58,.6);border-left:1px dashed rgba(51,36,28,.2);border-right:1px dashed rgba(51,36,28,.2);
+  transform:rotate(-3deg);z-index:4;
+}
+.art{position:relative;height:176px;display:grid;place-items:center;overflow:hidden;border-bottom:2px solid var(--ink)}
+.a1{background:#F6DCE0}.a2{background:#F7E7C4}.a3{background:#E4EDD3}.a4{background:#F3E3CE}.a5{background:#EADBCB}.a6{background:#FBEFD3}
+.tag{
+  position:absolute;top:12px;right:-6px;background:var(--ink);color:var(--paper);
+  font-family:var(--body);font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 12px 5px 14px;transform:rotate(3deg);z-index:5;
+}
+.tag.low{background:var(--jam)}
+.peekbtn{
+  position:absolute;left:10px;bottom:10px;z-index:5;cursor:pointer;
+  font-family:var(--hand);font-weight:700;font-size:18px;line-height:1;
+  background:var(--paper);border:2px solid var(--ink);border-radius:16px;padding:4px 12px 5px;
+  transform:rotate(-2deg);
+}
+.peekbtn:hover{background:var(--butter)}
+.inside{
+  position:absolute;inset:0;z-index:6;background:var(--paper);padding:16px 16px 14px;
+  transform:translateY(101%);transition:transform .32s cubic-bezier(.3,1,.4,1);
+}
+.card.peek .inside{transform:translateY(0)}
+.inside h4{font-family:var(--hand);font-weight:700;font-size:22px;margin:0 0 8px;color:var(--jam)}
+.inside ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.inside li{display:flex;gap:9px;align-items:center;font-size:12.5px;line-height:1.35}
+.inside .band{width:20px;height:10px;border:1.5px solid var(--ink);flex:0 0 auto}
+.inside .shut{
+  position:absolute;right:10px;bottom:10px;font-family:var(--hand);font-weight:700;font-size:17px;
+  background:none;border:0;cursor:pointer;text-decoration:underline;color:var(--ink)
+}
+.body{padding:16px 17px 17px;display:flex;flex-direction:column;flex:1}
+.kind{font-family:var(--body);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;opacity:.5;margin-bottom:6px}
+.card h3{font-family:var(--marker);font-size:20px;line-height:1.06;margin:0 0 8px;letter-spacing:-.005em}
+.card p{margin:0 0 16px;font-size:13.5px;line-height:1.55;opacity:.78}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
+.price{
+  font-family:var(--marker);font-size:23px;line-height:1;
+  border-bottom:3px solid var(--butter);padding-bottom:2px;
+}
+.price em{font-family:var(--body);font-style:normal;font-size:10.5px;font-weight:600;display:block;opacity:.5;border:0;margin-top:5px}
+.add{
+  font-family:var(--body);font-weight:800;font-size:13px;cursor:pointer;
+  background:var(--ink);color:var(--paper);border:0;border-radius:20px;padding:11px 17px;
+  display:flex;align-items:center;gap:7px;transition:.14s ease;
+}
+.add:hover{background:var(--jam)}
+.add.done{background:var(--pistachio)}
+
+/* ══ cake order strip ══ */
+.strip{
+  max-width:1160px;margin:clamp(34px,4vw,54px) auto 0;background:var(--kraft);color:var(--paper);
+  background-image:var(--grain);border-radius:6px;border:2px solid var(--kraft-dk);
+  padding:clamp(24px,3.6vw,40px);display:grid;grid-template-columns:1.25fr .75fr;
+  gap:26px;align-items:center;box-shadow:7px 8px 0 rgba(51,36,28,.18);
+}
+.strip .hd{font-family:var(--marker);font-size:clamp(26px,3.6vw,40px);line-height:.94;margin:6px 0 12px}
+.strip .pre{font-family:var(--hand);font-weight:700;font-size:26px;color:var(--butter)}
+.strip p{margin:0 0 20px;font-size:14.5px;line-height:1.65;color:rgba(251,243,226,.82);max-width:42ch}
+.strip .slice{display:grid;place-items:center}
+@media(max-width:760px){.strip{grid-template-columns:1fr}.strip .slice{order:-1}}
+
+/* ══ footer ══ */
+.scallop{height:24px;background:radial-gradient(circle at 12px -1px,transparent 12px,var(--kraft) 12.5px);background-size:24px 24px;background-repeat:repeat-x}
+footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);padding:8px clamp(16px,4vw,46px) 30px}
+.fgrid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.35fr repeat(3,1fr);gap:26px;padding:22px 0 26px}
+.fgrid h5{font-family:var(--hand);font-weight:700;font-size:24px;margin:0 0 10px;color:var(--butter)}
+.fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.fgrid a,.fgrid li{font-size:14px;color:rgba(251,243,226,.78);text-decoration:none}
+.fgrid a:hover{color:var(--butter)}
+.copy{max-width:1160px;margin:0 auto;border-top:1px solid rgba(251,243,226,.16);padding-top:16px;font-size:12px;color:rgba(251,243,226,.45);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media(max-width:760px){.fgrid{grid-template-columns:1fr 1fr}}
+
+/* ══ box tray ══ */
+.tray{
+  position:fixed;right:clamp(12px,3vw,26px);bottom:clamp(12px,3vw,26px);z-index:70;
+  background:var(--paper);border:2px solid var(--ink);border-radius:8px;
+  box-shadow:6px 7px 0 rgba(51,36,28,.25);padding:12px 14px;
+  display:flex;align-items:center;gap:14px;transform:translateY(160%) rotate(-1.5deg);
+  transition:transform .34s cubic-bezier(.3,1.2,.4,1);
+}
+.tray.up{transform:translateY(0) rotate(-1.5deg)}
+.tray .lbl{font-family:var(--hand);font-weight:700;font-size:19px;line-height:1}
+.tray .amt{font-family:var(--marker);font-size:19px;line-height:1;margin-top:3px}
+.tray button{
+  font-family:var(--body);font-weight:800;font-size:13.5px;cursor:pointer;
+  background:var(--butter);border:2px solid var(--ink);border-radius:20px;padding:10px 17px;color:var(--ink);
+}
+.tray button:hover{background:var(--jam);color:var(--paper)}
+
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ══════ BAR ══════ -->
+<div class="bar">
+  <a class="plaque" href="#top"><span class="nm">Proof</span><span class="sub">Bakehouse</span></a>
+  <ul class="links">
+    <li><a href="#shop">today's bake</a></li>
+    <li><a href="#cake">whole cakes</a></li>
+    <li><a href="#bench">the bench</a></li>
+    <li><a href="#visit">visit</a></li>
+    <li><button class="boxlink" id="navbox">your box <span class="n" id="navcnt">0</span></button></li>
+  </ul>
+</div>
+
+<!-- ══════ HERO ══════ -->
+<header class="hero" id="top">
+  <div class="hero-in">
+    <div>
+      <span class="script h-1">fresh out of the</span>
+      <h1 class="h-2"><span class="wide">OVEN AT</span><span class="off">SIX AM</span></h1>
+      <div class="script h-3">
+        gone by four
+        <span class="arrows">
+          <svg width="30" height="12" viewBox="0 0 30 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h24M20 1.5L25.5 6 20 10.5"/></svg>
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h18M15 2l4 4-4 4"/></svg>
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13M11 2.5L14.5 6 11 9.5"/></svg>
+        </span>
+      </div>
+      <p class="hero-note">One bake a day, started before it's light out. Everything on this page was flour, butter and a bit of patience about four hours ago. When the board's empty, that's us done till tomorrow.</p>
+      <div class="hero-btns">
+        <a class="btn btn-yolk" href="#shop">Shop today's bake</a>
+        <a class="btn btn-cream" href="#cake">Order a whole cake</a>
+      </div>
+    </div>
+
+    <div class="stackwrap">
+      <div class="speech">seven tarts,<br>no hands</div>
+      <svg viewBox="0 0 400 400" aria-label="A leaning stack of tarts on a cake stand">
+        <!-- stand -->
+        <ellipse cx="200" cy="366" rx="126" ry="15" fill="#000" opacity=".18"/>
+        <path d="M168 356h64l-8-26h-48z" fill="#E9DDC6"/>
+        <ellipse cx="200" cy="356" rx="46" ry="9" fill="#DCCDB2"/>
+        <ellipse cx="200" cy="322" rx="118" ry="22" fill="#FBF3E2"/>
+        <ellipse cx="200" cy="317" rx="118" ry="21" fill="#FFFDF7"/>
+
+        <!-- tarts, leaning as they go up -->
+        <g>
+          <g transform="translate(200 300) rotate(-3)">
+            <path d="M-84 0c0-14 8-24 84-24s84 10 84 24-38 20-84 20-84-6-84-20z" fill="#D9A85F"/>
+            <path d="M-84 0c0-14 8-24 84-24s84 10 84 24" fill="#E8BE7C"/>
+            <path d="M-70-8c8 8 8 8 16 0M-40-12c8 8 8 8 16 0M-8-14c8 8 8 8 16 0M24-13c8 8 8 8 16 0M54-10c8 8 8 8 16 0" stroke="#C08F45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="-20" rx="62" ry="9" fill="#8C5A32"/>
+          </g>
+          <g transform="translate(196 268) rotate(4)">
+            <path d="M-80 0c0-13 8-23 80-23s80 10 80 23-36 19-80 19-80-6-80-19z" fill="#D9A85F"/>
+            <path d="M-80 0c0-13 8-23 80-23s80 10 80 23" fill="#E8BE7C"/>
+            <path d="M-66-8c8 8 8 8 15 0M-37-12c8 8 8 8 15 0M-7-14c8 8 8 8 15 0M23-12c8 8 8 8 15 0M52-9c8 8 8 8 15 0" stroke="#C08F45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="-19" rx="59" ry="8.6" fill="#8C5A32"/>
+          </g>
+          <g transform="translate(206 237) rotate(-5)">
+            <path d="M-77 0c0-13 8-22 77-22s77 9 77 22-35 18-77 18-77-5-77-18z" fill="#D9A85F"/>
+            <path d="M-77 0c0-13 8-22 77-22s77 9 77 22" fill="#E8BE7C"/>
+            <path d="M-63-8c8 8 8 8 15 0M-34-11c8 8 8 8 15 0M-6-13c8 8 8 8 15 0M22-12c8 8 8 8 15 0M50-9c8 8 8 8 15 0" stroke="#C08F45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="-18" rx="57" ry="8.2" fill="#8C5A32"/>
+          </g>
+          <g transform="translate(194 207) rotate(6)">
+            <path d="M-74 0c0-12 8-21 74-21s74 9 74 21-34 17-74 17-74-5-74-17z" fill="#D9A85F"/>
+            <path d="M-74 0c0-12 8-21 74-21s74 9 74 21" fill="#E8BE7C"/>
+            <path d="M-60-8c8 7 8 7 14 0M-33-11c8 7 8 7 14 0M-6-12c8 7 8 7 14 0M21-11c8 7 8 7 14 0M48-8c8 7 8 7 14 0" stroke="#C08F45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="-17" rx="55" ry="7.8" fill="#8C5A32"/>
+          </g>
+          <g transform="translate(208 178) rotate(-7)">
+            <path d="M-70 0c0-12 8-20 70-20s70 8 70 20-32 16-70 16-70-4-70-16z" fill="#D9A85F"/>
+            <path d="M-70 0c0-12 8-20 70-20s70 8 70 20" fill="#E8BE7C"/>
+            <path d="M-57-7c8 7 8 7 14 0M-31-10c8 7 8 7 14 0M-6-12c8 7 8 7 14 0M20-10c8 7 8 7 14 0M45-7c8 7 8 7 14 0" stroke="#C08F45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="-16" rx="52" ry="7.4" fill="#8C5A32"/>
+          </g>
+          <g transform="translate(192 151) rotate(8)">
+            <path d="M-66 0c0-11 7-19 66-19s66 8 66 19-30 15-66 15-66-4-66-15z" fill="#D9A85F"/>
+            <path d="M-66 0c0-11 7-19 66-19s66 8 66 19" fill="#E8BE7C"/>
+            <ellipse cx="0" cy="-15" rx="49" ry="7" fill="#8C5A32"/>
+          </g>
+          <g transform="translate(206 125) rotate(-9)">
+            <path d="M-62 0c0-11 7-18 62-18s62 7 62 18-28 14-62 14-62-3-62-14z" fill="#D9A85F"/>
+            <path d="M-62 0c0-11 7-18 62-18s62 7 62 18" fill="#E8BE7C"/>
+            <ellipse cx="0" cy="-14" rx="46" ry="6.6" fill="#8C5A32"/>
+            <circle cx="-14" cy="-16" r="7" fill="#C4485D"/>
+            <circle cx="4" cy="-19" r="8" fill="#D65B70"/>
+            <circle cx="22" cy="-15" r="6.5" fill="#C4485D"/>
+            <path d="M4-30c-5-4-2-9 2-10 1 5 3 7 6 8-1 3-5 4-8 2z" fill="#8FAE63"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- torn edge -->
+<div class="tear" aria-hidden="true">
+  <svg viewBox="0 0 1200 36" preserveAspectRatio="none">
+    <path fill="#FBF3E2" d="M0 18c26-7 40 5 64 3s34-11 58-9 36 12 62 9 38-13 63-11 34 12 60 11 40-13 65-11 33 11 59 10 40-12 65-10 34 11 60 9 37-12 62-10 35 12 61 10 38-12 63-10 34 11 60 9 38-12 62-10 36 11 61 9 34-9 60-7v27H0z"/>
+    <path fill="#FBF3E2" opacity=".5" d="M0 26c30-6 44 3 70 1s36-8 62-6 38 9 64 7 40-9 66-7 36 8 62 6 40-9 66-7 36 8 62 6 40-9 66-7 36 8 62 6 40-9 66-7 36 8 62 6 42-8 70-6v18H0z"/>
+  </svg>
+</div>
+
+<!-- ══════ THREE DOORS ══════ -->
+<nav class="doors">
+  <a class="door d1" href="#shop">
+    <span class="sm">shop</span>
+    <span class="big">TODAY'S BAKE</span>
+    <span class="tiny">cakes · loaves · small things</span>
+    <svg class="squiggle" width="150" height="9" viewBox="0 0 150 9" fill="none" stroke="#C4485D" stroke-width="2.6" stroke-linecap="round"><path d="M3 6c12-5 24 3 36-1s24-4 36 0 24 4 36 0 21-3 36 1"/></svg>
+  </a>
+  <a class="door d2" href="#cake">
+    <span class="sm">order a</span>
+    <span class="big">WHOLE CAKE</span>
+    <span class="tiny">72 hours notice, please</span>
+    <svg class="squiggle" width="150" height="9" viewBox="0 0 150 9" fill="none" stroke="#EFB43A" stroke-width="2.6" stroke-linecap="round"><path d="M3 5c14 4 26-4 38 0s26 5 38 1 24-4 36 0 20 3 32-2"/></svg>
+  </a>
+  <a class="door d3" href="#bench">
+    <span class="sm">meet the</span>
+    <span class="big">BAKERS</span>
+    <span class="tiny">four of us, one oven</span>
+    <svg class="squiggle" width="150" height="9" viewBox="0 0 150 9" fill="none" stroke="#7C4A6B" stroke-width="2.6" stroke-linecap="round"><path d="M3 4c13 5 25-3 37 1s25 4 37 0 25-4 37 0 18 4 33-1"/></svg>
+  </a>
+</nav>
+
+<div class="dashrule"></div>
+
+<!-- ══════ BENCH NOTES ══════ -->
+<section class="bench" id="bench">
+  <div>
+    <h2>Chalked up this morning</h2>
+    <div class="note">
+      <b>Raspberries came in</b>
+      <p>Six flats of them, from the farm out past the reservoir. The ripple cake is jammier than usual this week and nobody is sorry about it.</p>
+      <span class="when">today, 6:40am</span>
+    </div>
+    <div class="note">
+      <b>New: rye chocolate cookies</b>
+      <p>We've been resting the dough 36 hours. Edges snap, middle doesn't. Twenty bags a day until we run out of rye.</p>
+      <span class="when">tuesday</span>
+    </div>
+  </div>
+  <div>
+    <h2>Sold out early lately</h2>
+    <div class="note">
+      <b>Pistachio bundt</b>
+      <p>Gone by 12:20 four days running. We've put two more in the oven, but if you want one, come before lunch or reserve it here.</p>
+      <span class="when">this week</span>
+    </div>
+    <div class="note">
+      <b>Milk bread</b>
+      <p>Saturdays are hopeless. Order the night before and we'll set one aside with your name on the bag, in actual pencil.</p>
+      <span class="when">every saturday</span>
+    </div>
+  </div>
+  <div class="findus" id="visit">
+    <h2>Come find us</h2>
+    <ul>
+      <li>
+        <span class="ic" style="background:var(--jam)">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 15s5.5-5 5.5-8.6A5.5 5.5 0 0 0 8 1a5.5 5.5 0 0 0-5.5 5.4C2.5 10 8 15 8 15z"/><circle cx="8" cy="6.4" r="1.9"/></svg>
+        </span>
+        <span>14 Mill Row<br>corner of Beck Street</span>
+      </li>
+      <li>
+        <span class="ic" style="background:var(--pistachio)">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.4V8l2.6 1.6"/></svg>
+        </span>
+        <span>Tue–Fri 10–4, Sat–Sun 9–3<br>Monday the oven rests</span>
+      </li>
+      <li>
+        <span class="ic" style="background:var(--plum)">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1.5 4h13v8h-13z"/><path d="M1.5 4.5L8 9l6.5-4.5"/></svg>
+        </span>
+        <span>hello@proofbakehouse.com<br>we answer between bakes</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════ SHOP ══════ -->
+<section class="shop" id="shop">
+  <div class="shophead">
+    <div>
+      <h2 class="ttl">TODAY'S BAKE</h2>
+      <p class="say">pull a card open to see what's inside it →</p>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip on" data-f="all">everything</button>
+      <button class="chip" data-f="cake">cakes</button>
+      <button class="chip" data-f="cupcake">cupcakes</button>
+      <button class="chip" data-f="loaf">loaves</button>
+      <button class="chip" data-f="small">small things</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <article class="card" data-cat="cake">
+      <span class="tape"></span>
+      <div class="art a1">
+        <span class="tag low">4 left</span>
+        <svg width="152" height="140" viewBox="0 0 152 140">
+          <ellipse cx="76" cy="126" rx="54" ry="7" fill="#33241C" opacity=".16"/>
+          <path d="M26 60h100v58a6 6 0 0 1-6 6H32a6 6 0 0 1-6-6z" fill="#FBF3E2" stroke="#33241C" stroke-width="3"/>
+          <rect x="27" y="76" width="98" height="11" fill="#C4485D"/>
+          <rect x="27" y="99" width="98" height="10" fill="#C08F45"/>
+          <path d="M26 60h100v9c-9 8-16-3-24 3s-13 4-20-1-11 6-20 1-10-5-17-1-14 2-19-3z" fill="#FFFDF7" stroke="#33241C" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="56" cy="49" r="9" fill="#C4485D" stroke="#33241C" stroke-width="2.4"/>
+          <circle cx="78" cy="43" r="11" fill="#D65B70" stroke="#33241C" stroke-width="2.4"/>
+          <circle cx="101" cy="50" r="8" fill="#C4485D" stroke="#33241C" stroke-width="2.4"/>
+          <path d="M78 31c-6-5-3-10 2-12 1 5 4 8 8 9-2 4-6 5-10 3z" fill="#8FAE63" stroke="#33241C" stroke-width="2"/>
+        </svg>
+        <button class="peekbtn">what's inside?</button>
+        <div class="inside">
+          <h4>Raspberry ripple</h4>
+          <ul>
+            <li><span class="band" style="background:#FFFDF7"></span>Vanilla sponge, four layers</li>
+            <li><span class="band" style="background:#C4485D"></span>Raspberry jam, cooked Tuesday</li>
+            <li><span class="band" style="background:#C08F45"></span>Brown sugar buttercream</li>
+          </ul>
+          <button class="shut">close</button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="kind">layer cake · serves 10</div>
+        <h3>Raspberry ripple</h3>
+        <p>Four sponge layers with jam pressed from this week's berries, fruit piled on top.</p>
+        <div class="foot">
+          <div class="price">$42<em>whole cake</em></div>
+          <button class="add" data-price="42">＋ add</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="cupcake">
+      <span class="tape"></span>
+      <div class="art a2">
+        <span class="tag">12 left</span>
+        <svg width="152" height="140" viewBox="0 0 152 140">
+          <ellipse cx="76" cy="126" rx="48" ry="7" fill="#33241C" opacity=".16"/>
+          <path d="M46 72h60l-8 44a7 7 0 0 1-7 6H61a7 7 0 0 1-7-6z" fill="#D9A85F" stroke="#33241C" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M52 84h48M56 100h40" stroke="#33241C" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+          <path d="M41 72c0-9 8-13 12-11 1-9 10-13 16-9 4-8 15-8 19 0 7-4 15 1 15 9 5-2 12 3 11 11z" fill="#FFFDF7" stroke="#33241C" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="76" cy="36" r="7" fill="#C4485D" stroke="#33241C" stroke-width="2.4"/>
+          <g fill="#8FAE63"><circle cx="59" cy="53" r="2.6"/><circle cx="93" cy="56" r="2.6"/><circle cx="76" cy="61" r="2.6"/></g>
+        </svg>
+        <button class="peekbtn">what's inside?</button>
+        <div class="inside">
+          <h4>Brown butter six</h4>
+          <ul>
+            <li><span class="band" style="background:#D9A85F"></span>Brown butter sponge</li>
+            <li><span class="band" style="background:#B57F42"></span>Salted caramel centre</li>
+            <li><span class="band" style="background:#FFFDF7"></span>Vanilla bean buttercream</li>
+          </ul>
+          <button class="shut">close</button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="kind">box of six</div>
+        <h3>Brown butter cupcakes</h3>
+        <p>Butter cooked till it smells of hazelnuts, caramel hidden in the middle, piped tall.</p>
+        <div class="foot">
+          <div class="price">$18<em>box of 6</em></div>
+          <button class="add" data-price="18">＋ add</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="cake">
+      <span class="tape"></span>
+      <div class="art a3">
+        <span class="tag low">2 left</span>
+        <svg width="152" height="140" viewBox="0 0 152 140">
+          <ellipse cx="76" cy="124" rx="52" ry="7" fill="#33241C" opacity=".16"/>
+          <path d="M28 78c0-25 22-42 48-42s48 17 48 42c0 22-22 34-48 34s-48-12-48-34z" fill="#C7A96A" stroke="#33241C" stroke-width="3"/>
+          <circle cx="76" cy="84" r="18" fill="#EDF3E2" stroke="#33241C" stroke-width="3"/>
+          <path d="M33 62c10 6 20-4 30 2s20-4 30 2 17-2 25 2" stroke="#8FAE63" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <g fill="#6F8F4A"><circle cx="52" cy="52" r="3"/><circle cx="88" cy="48" r="3"/><circle cx="105" cy="60" r="3"/><circle cx="66" cy="44" r="3"/></g>
+        </svg>
+        <button class="peekbtn">what's inside?</button>
+        <div class="inside">
+          <h4>Pistachio bundt</h4>
+          <ul>
+            <li><span class="band" style="background:#C7A96A"></span>Olive oil &amp; pistachio crumb</li>
+            <li><span class="band" style="background:#8FAE63"></span>Ground pistachio glaze</li>
+            <li><span class="band" style="background:#EDF3E2"></span>Lemon syrup, poured warm</li>
+          </ul>
+          <button class="shut">close</button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="kind">bundt · serves 8</div>
+        <h3>Pistachio bundt</h3>
+        <p>Soaked in lemon syrup straight out of the tin, so it never quite dries out.</p>
+        <div class="foot">
+          <div class="price">$34<em>whole bundt</em></div>
+          <button class="add" data-price="34">＋ add</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="loaf">
+      <span class="tape"></span>
+      <div class="art a4">
+        <span class="tag">9 left</span>
+        <svg width="152" height="140" viewBox="0 0 152 140">
+          <ellipse cx="76" cy="122" rx="52" ry="7" fill="#33241C" opacity=".16"/>
+          <path d="M29 66c0-14 12-22 47-22s47 8 47 22v38a8 8 0 0 1-8 8H37a8 8 0 0 1-8-8z" fill="#D9A85F" stroke="#33241C" stroke-width="3"/>
+          <path d="M29 66c0-14 12-22 47-22s47 8 47 22c0 6-6 9-16 9H45c-10 0-16-3-16-9z" fill="#E8BE7C" stroke="#33241C" stroke-width="3"/>
+          <path d="M47 58c6-8 14-8 20 0M79 58c6-8 14-8 20 0" stroke="#C08F45" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+          <path d="M41 94h70" stroke="#C08F45" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+        </svg>
+        <button class="peekbtn">what's inside?</button>
+        <div class="inside">
+          <h4>Milk bread</h4>
+          <ul>
+            <li><span class="band" style="background:#E8BE7C"></span>Tangzhong milk dough</li>
+            <li><span class="band" style="background:#FFFDF7"></span>18 hours cold in the fridge</li>
+            <li><span class="band" style="background:#D9A85F"></span>Butter brushed on hot</li>
+          </ul>
+          <button class="shut">close</button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="kind">loaf · 800g</div>
+        <h3>Milk bread</h3>
+        <p>Pulls apart in strands. Best today, excellent as toast tomorrow, gone by Sunday.</p>
+        <div class="foot">
+          <div class="price">$9<em>per loaf</em></div>
+          <button class="add" data-price="9">＋ add</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="small">
+      <span class="tape"></span>
+      <div class="art a5">
+        <span class="tag">20 left</span>
+        <svg width="152" height="140" viewBox="0 0 152 140">
+          <ellipse cx="76" cy="118" rx="46" ry="7" fill="#33241C" opacity=".16"/>
+          <circle cx="76" cy="72" r="42" fill="#C08F45" stroke="#33241C" stroke-width="3"/>
+          <g fill="#4A2C1B"><circle cx="61" cy="58" r="8"/><circle cx="91" cy="64" r="9"/><circle cx="69" cy="88" r="7.5"/><circle cx="94" cy="90" r="6.5"/><circle cx="51" cy="80" r="5.5"/></g>
+          <g fill="#FBF3E2" opacity=".8"><circle cx="79" cy="47" r="2.6"/><circle cx="46" cy="66" r="2.2"/><circle cx="105" cy="76" r="2.4"/></g>
+        </svg>
+        <button class="peekbtn">what's inside?</button>
+        <div class="inside">
+          <h4>Rye &amp; chocolate</h4>
+          <ul>
+            <li><span class="band" style="background:#C08F45"></span>Dark rye flour base</li>
+            <li><span class="band" style="background:#4A2C1B"></span>70% chocolate, chopped not chips</li>
+            <li><span class="band" style="background:#FBF3E2"></span>Sea salt on top</li>
+          </ul>
+          <button class="shut">close</button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="kind">bag of four</div>
+        <h3>Rye chocolate cookies</h3>
+        <p>Dough rested 36 hours, so the edge snaps and the middle stays soft.</p>
+        <div class="foot">
+          <div class="price">$12<em>bag of 4</em></div>
+          <button class="add" data-price="12">＋ add</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="small">
+      <span class="tape"></span>
+      <div class="art a6">
+        <span class="tag">6 left</span>
+        <svg width="152" height="140" viewBox="0 0 152 140">
+          <ellipse cx="76" cy="120" rx="52" ry="7" fill="#33241C" opacity=".16"/>
+          <path d="M25 78h102l-6 26a8 8 0 0 1-8 6H39a8 8 0 0 1-8-6z" fill="#D9A85F" stroke="#33241C" stroke-width="3" stroke-linejoin="round"/>
+          <ellipse cx="76" cy="70" rx="50" ry="13" fill="#EFB43A" stroke="#33241C" stroke-width="3"/>
+          <g fill="#FFFDF7" stroke="#33241C" stroke-width="2.4"><circle cx="58" cy="64" r="6"/><circle cx="76" cy="61" r="7"/><circle cx="95" cy="65" r="6"/></g>
+        </svg>
+        <button class="peekbtn">what's inside?</button>
+        <div class="inside">
+          <h4>Lemon curd tart</h4>
+          <ul>
+            <li><span class="band" style="background:#D9A85F"></span>Blind-baked butter pastry</li>
+            <li><span class="band" style="background:#EFB43A"></span>Lemon curd, cooked slow</li>
+            <li><span class="band" style="background:#FFFDF7"></span>Meringue, torched at the counter</li>
+          </ul>
+          <button class="shut">close</button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="kind">tart · serves 6</div>
+        <h3>Lemon curd tart</h3>
+        <p>Sharp enough to make you blink. We torch the meringue when you order it.</p>
+        <div class="foot">
+          <div class="price">$28<em>whole tart</em></div>
+          <button class="add" data-price="28">＋ add</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- whole cakes -->
+  <div class="strip" id="cake">
+    <div>
+      <span class="pre">got something to celebrate?</span>
+      <h3 class="hd">TELL US THE OCCASION,<br>WE'LL BUILD THE CAKE</h3>
+      <p>Pick a sponge, a filling and a finish and we'll bake it into two or three tiers. From $95. We'll sketch it, send you the sketch, and only start once you say yes.</p>
+      <a class="btn btn-yolk" href="#cake">Start a cake order</a>
+    </div>
+    <div class="slice">
+      <svg width="210" height="180" viewBox="0 0 210 180" aria-label="A slice of layer cake">
+        <path d="M40 46h130v106a6 6 0 0 1-6 6H46a6 6 0 0 1-6-6z" fill="#F3E3CE" stroke="#33241C" stroke-width="3.4"/>
+        <rect x="42" y="66" width="126" height="14" fill="#C4485D"/>
+        <rect x="42" y="98" width="126" height="13" fill="#C08F45"/>
+        <rect x="42" y="128" width="126" height="12" fill="#C4485D"/>
+        <path d="M40 46h130v10c-12 9-19-3-29 4s-17 5-27-1-15 7-25 1-13-6-21-2-14 3-18-2z" fill="#FFFDF7" stroke="#33241C" stroke-width="3.4" stroke-linejoin="round"/>
+        <circle cx="76" cy="33" r="11" fill="#C4485D" stroke="#33241C" stroke-width="3"/>
+        <circle cx="105" cy="26" r="13" fill="#D65B70" stroke="#33241C" stroke-width="3"/>
+        <circle cx="133" cy="34" r="10" fill="#C4485D" stroke="#33241C" stroke-width="3"/>
+        <path d="M105 13c-7-6-3-12 2-14 1 6 5 10 9 11-2 5-7 6-11 3z" fill="#8FAE63" stroke="#33241C" stroke-width="2.6"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<div class="scallop" aria-hidden="true"></div>
+<footer>
+  <div class="fgrid">
+    <div>
+      <h5>Proof Bakehouse</h5>
+      <ul>
+        <li>14 Mill Row, corner of Beck Street</li>
+        <li>hello@proofbakehouse.com</li>
+        <li>(555) 018 4402</li>
+      </ul>
+    </div>
+    <div>
+      <h5>hours</h5>
+      <ul>
+        <li>Tue–Fri 10:00 – 16:00</li>
+        <li>Sat–Sun 09:00 – 15:00</li>
+        <li>Monday — oven rests</li>
+      </ul>
+    </div>
+    <div>
+      <h5>the shop</h5>
+      <ul>
+        <li><a href="#shop">Today's bake</a></li>
+        <li><a href="#cake">Whole cakes</a></li>
+        <li><a href="#shop">Loaves</a></li>
+        <li><a href="#shop">Gift notes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>the small print</h5>
+      <ul>
+        <li><a href="#top">Delivery &amp; collection</a></li>
+        <li><a href="#top">Allergens</a></li>
+        <li><a href="#top">Where our flour comes from</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">
+    <span>© 2026 Proof Bakehouse — baked, not assembled.</span>
+    <span>Free delivery over $40, by bicycle, before 4pm.</span>
+  </div>
+</footer>
+
+<div class="tray" id="tray">
+  <div>
+    <div class="lbl" id="traylbl">nothing yet</div>
+    <div class="amt" id="trayamt">$0</div>
+  </div>
+  <button>check out</button>
+</div>
+
+<script>
+/* filter */
+document.getElementById('chips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if(!c) return;
+  document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
+  c.classList.add('on');
+  const f = c.dataset.f;
+  document.querySelectorAll('.card').forEach(card =>
+    card.classList.toggle('hide', f !== 'all' && card.dataset.cat !== f));
+});
+
+/* peek inside */
+document.querySelectorAll('.peekbtn').forEach(b =>
+  b.addEventListener('click', () => b.closest('.card').classList.add('peek')));
+document.querySelectorAll('.shut').forEach(b =>
+  b.addEventListener('click', () => b.closest('.card').classList.remove('peek')));
+
+/* the box */
+let n = 0, sum = 0;
+const tray = document.getElementById('tray');
+document.querySelectorAll('.add').forEach(btn => {
+  btn.addEventListener('click', () => {
+    n++; sum += parseFloat(btn.dataset.price);
+    document.getElementById('navcnt').textContent = n;
+    document.getElementById('traylbl').textContent = n === 1 ? '1 thing in your box' : n + ' things in your box';
+    document.getElementById('trayamt').textContent = '$' + sum;
+    tray.classList.add('up');
+    btn.classList.add('done'); btn.textContent = '✓ in the box';
+    setTimeout(() => { btn.classList.remove('done'); btn.textContent = '＋ add'; }, 1300);
+  });
+});
+document.getElementById('navbox').addEventListener('click', () => tray.classList.add('up'));
+
+/* gentle anchor scrolling, only where it's asked for */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+</script>
+</body>
+</html>

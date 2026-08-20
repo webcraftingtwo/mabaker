@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build a cake — Proof Bakehouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Karla:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{
+  --jam:#C4485D;--paper:#FBF3E2;--paper-2:#F4E8D0;--kraft:#6B4B36;--kraft-dk:#573A28;
+  --ink:#33241C;--butter:#EFB43A;--pistachio:#8FAE63;--plum:#7C4A6B;
+  --marker:'Permanent Marker',cursive;--hand:'Caveat',cursive;--body:'Karla',sans-serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)' opacity='.055'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{display:block}
+:focus-visible{outline:3px solid var(--butter);outline-offset:3px}
+::selection{background:var(--butter)}
+
+.bar{background:var(--paper);border-bottom:2px solid rgba(51,36,28,.09);display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px clamp(16px,4vw,46px)}
+.plaque{display:flex;flex-direction:column;align-items:center;background:var(--kraft);color:var(--paper);padding:9px 26px 11px;border-radius:8px 8px 22px 22px;border:2px solid var(--kraft-dk);box-shadow:0 4px 0 rgba(51,36,28,.18);text-decoration:none;transform:rotate(-1deg)}
+.plaque .nm{font-family:var(--hand);font-size:27px;font-weight:700;line-height:.9}
+.plaque .sub{font-size:7.5px;letter-spacing:.34em;text-transform:uppercase;opacity:.72;margin-top:4px}
+.back{font-family:var(--hand);font-weight:700;font-size:21px;text-decoration:none;color:rgba(51,36,28,.6)}
+.back:hover{color:var(--jam)}
+
+/* head */
+.head{background:var(--jam);background-image:var(--grain);color:var(--paper);padding:clamp(28px,4vw,44px) clamp(16px,4vw,46px) clamp(34px,4.6vw,52px);text-align:center}
+.head .pre{font-family:var(--hand);font-weight:700;font-size:clamp(24px,3vw,32px);color:var(--butter);display:block;transform:rotate(-2deg)}
+.head h1{font-family:var(--marker);font-size:clamp(34px,6.6vw,68px);line-height:.92;margin:4px 0 10px;text-shadow:4px 4px 0 rgba(0,0,0,.13)}
+.head p{margin:0 auto;max-width:52ch;font-size:15px;color:rgba(251,243,226,.84)}
+.tear{display:block;width:100%;height:32px;margin-top:-1px}
+.tear svg{width:100%;height:100%}
+
+/* stepper */
+.steps{max-width:900px;margin:0 auto;padding:26px clamp(16px,4vw,46px) 6px;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+.st{display:flex;align-items:center;gap:9px;cursor:pointer;background:none;border:0;font-family:var(--body);padding:4px 6px}
+.st .dot{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--ink);background:var(--paper);display:grid;place-items:center;font-family:var(--marker);font-size:16px;color:var(--ink)}
+.st .nm{font-family:var(--hand);font-weight:700;font-size:20px;color:rgba(51,36,28,.5)}
+.st.on .dot{background:var(--jam);color:var(--paper)}
+.st.on .nm{color:var(--ink)}
+.st.done .dot{background:var(--pistachio);color:var(--ink)}
+.link{width:clamp(14px,3vw,42px);height:2px;background-image:linear-gradient(to right,rgba(51,36,28,.35) 55%,transparent 0);background-size:9px 2px}
+@media(max-width:760px){.st .nm{display:none}}
+
+/* layout */
+.build{max-width:1160px;margin:0 auto;padding:10px clamp(16px,4vw,46px) clamp(40px,5vw,66px);display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(20px,3.6vw,44px);align-items:start}
+@media(max-width:900px){.build{grid-template-columns:1fr}}
+
+.stagebox{position:sticky;top:18px;background:#FBEFD3;background-image:var(--grain);border:2px solid var(--ink);border-radius:5px;box-shadow:7px 8px 0 rgba(51,36,28,.16);padding:16px 14px 12px;text-align:center}
+.stagebox .cap{font-family:var(--hand);font-weight:700;font-size:21px;color:rgba(51,36,28,.6)}
+.runprice{display:flex;justify-content:space-between;align-items:flex-end;border-top:2px dashed rgba(51,36,28,.25);margin-top:10px;padding-top:11px;text-align:left}
+.runprice .l{font-family:var(--hand);font-weight:700;font-size:20px;color:rgba(51,36,28,.6)}
+.runprice .v{font-family:var(--marker);font-size:30px;line-height:1}
+@media(max-width:900px){.stagebox{position:static}}
+
+.panel{display:none}
+.panel.on{display:block}
+.panel h2{font-family:var(--marker);font-size:clamp(24px,3.4vw,36px);line-height:.96;margin:0 0 4px;transform:rotate(-.8deg)}
+.panel .say{font-family:var(--hand);font-weight:700;font-size:22px;color:var(--jam);margin:0 0 20px}
+
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+.o{
+  position:relative;text-align:left;cursor:pointer;background:var(--paper);
+  border:2px solid var(--ink);border-radius:5px;padding:14px 15px;font-family:var(--body);color:var(--ink);
+  box-shadow:4px 5px 0 rgba(51,36,28,.13);transition:.14s ease;
+}
+.o:nth-child(2n){transform:rotate(.6deg)}
+.o:nth-child(2n+1){transform:rotate(-.5deg)}
+.o:hover{transform:rotate(0) translateY(-3px);box-shadow:5px 8px 0 rgba(51,36,28,.18)}
+.o.on{background:var(--ink);color:var(--paper);box-shadow:4px 5px 0 var(--jam)}
+.o .sw{width:100%;height:26px;border:2px solid var(--ink);border-radius:3px;margin-bottom:10px}
+.o.on .sw{border-color:var(--paper)}
+.o b{display:block;font-family:var(--hand);font-weight:700;font-size:22px;line-height:1}
+.o small{display:block;font-size:12px;line-height:1.4;opacity:.62;margin-top:3px}
+.o .cost{position:absolute;top:-11px;right:-9px;background:var(--butter);border:2px solid var(--ink);border-radius:14px;font-family:var(--marker);font-size:12px;padding:2px 9px;color:var(--ink);transform:rotate(4deg)}
+
+.msgfield{width:100%;font-family:var(--hand);font-weight:700;font-size:24px;padding:14px;border:2px solid var(--ink);border-radius:5px;background:repeating-linear-gradient(var(--paper),var(--paper) 37px,rgba(51,36,28,.13) 38px);resize:none;color:var(--ink);margin-top:6px}
+.tiny{font-size:12px;opacity:.55;margin-top:7px}
+
+.navrow{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.btn{font-family:var(--body);font-weight:800;font-size:15px;cursor:pointer;padding:13px 25px;border-radius:26px;border:2px solid var(--ink);transition:.14s ease}
+.btn-yolk{background:var(--butter);color:var(--ink);box-shadow:0 5px 0 var(--ink)}
+.btn-cream{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--ink)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+
+/* docket */
+.docket{background:var(--paper);border:2px solid var(--ink);border-radius:4px;box-shadow:6px 7px 0 rgba(51,36,28,.16);padding:22px 22px 20px;position:relative;transform:rotate(-.5deg)}
+.docket::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:9px;background:radial-gradient(circle at 8px 0,transparent 8px,var(--ink) 8.5px);background-size:16px 9px;opacity:.16}
+.docket h3{font-family:var(--marker);font-size:24px;margin:0 0 2px}
+.docket .ref{font-family:var(--body);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;opacity:.45;margin-bottom:16px}
+.line{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px dashed rgba(51,36,28,.25);font-size:14.5px}
+.line .k{font-family:var(--hand);font-weight:700;font-size:19px;color:rgba(51,36,28,.6);min-width:88px}
+.line .v{flex:1}
+.line .c{font-family:var(--marker);font-size:15px}
+.total{display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;margin-top:6px}
+.total .k{font-family:var(--hand);font-weight:700;font-size:26px}
+.total .v{font-family:var(--marker);font-size:34px;border-bottom:4px solid var(--butter)}
+.sent{display:none;text-align:center;padding:12px 0 0}
+.sent.show{display:block}
+.sent .stamp{display:inline-block;font-family:var(--marker);font-size:19px;color:var(--pistachio);border:3px solid var(--pistachio);border-radius:8px;padding:8px 16px;transform:rotate(-5deg)}
+.sent p{font-family:var(--hand);font-weight:700;font-size:21px;margin:12px 0 0}
+
+.scallop{height:24px;background:radial-gradient(circle at 12px -1px,transparent 12px,var(--kraft) 12.5px);background-size:24px 24px;background-repeat:repeat-x}
+footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);padding:22px clamp(16px,4vw,46px) 30px}
+.foot-in{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:13.5px;color:rgba(251,243,226,.72)}
+.foot-in a{color:var(--butter)}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="plaque" href="#"><span class="nm">Proof</span><span class="sub">Bakehouse</span></a>
+  <a class="back" href="#">← back to today's bake</a>
+</div>
+
+<header class="head">
+  <span class="pre">got something to celebrate?</span>
+  <h1>BUILD YOUR CAKE</h1>
+  <p>Four decisions and we'll take it from there. We need 72 hours, and we'll send you a sketch before anything goes near the oven.</p>
+</header>
+
+<div class="tear" aria-hidden="true">
+  <svg viewBox="0 0 1200 32" preserveAspectRatio="none">
+    <path fill="#FBF3E2" d="M0 16c26-6 40 5 64 3s34-10 58-8 36 11 62 8 38-11 63-9 34 10 60 9 40-11 65-9 33 10 59 9 40-11 65-9 34 10 60 8 37-11 62-9 35 11 61 9 38-11 63-9 34 10 60 8 38-11 62-9 36 10 61 8 34-8 60-6v24H0z"/>
+  </svg>
+</div>
+
+<!-- ═══ stepper ═══ -->
+<div class="steps" id="steps">
+  <button class="st on" data-s="0"><span class="dot">1</span><span class="nm">size</span></button>
+  <span class="link"></span>
+  <button class="st" data-s="1"><span class="dot">2</span><span class="nm">sponge</span></button>
+  <span class="link"></span>
+  <button class="st" data-s="2"><span class="dot">3</span><span class="nm">filling</span></button>
+  <span class="link"></span>
+  <button class="st" data-s="3"><span class="dot">4</span><span class="nm">finish</span></button>
+  <span class="link"></span>
+  <button class="st" data-s="4"><span class="dot">5</span><span class="nm">the docket</span></button>
+</div>
+
+<section class="build">
+
+  <!-- live drawing -->
+  <div class="stagebox">
+    <div id="stage"></div>
+    <div class="cap" id="cap">two tiers · vanilla · raspberry jam</div>
+    <div class="runprice">
+      <span class="l">running to</span>
+      <span class="v" id="run">$135</span>
+    </div>
+  </div>
+
+  <!-- panels -->
+  <div>
+
+    <div class="panel on" data-p="0">
+      <h2>HOW BIG?</h2>
+      <p class="say">count the people, then add two</p>
+      <div class="opts" id="g-size"></div>
+      <div class="navrow"><button class="btn btn-yolk" data-go="1">Next — pick a sponge</button></div>
+    </div>
+
+    <div class="panel" data-p="1">
+      <h2>WHAT SPONGE?</h2>
+      <p class="say">this is the bit you actually taste</p>
+      <div class="opts" id="g-sponge"></div>
+      <div class="navrow"><button class="btn btn-cream" data-go="0">← Back</button><button class="btn btn-yolk" data-go="2">Next — pick a filling</button></div>
+    </div>
+
+    <div class="panel" data-p="2">
+      <h2>WHAT'S IN BETWEEN?</h2>
+      <p class="say">goes between every layer, not just the middle</p>
+      <div class="opts" id="g-filling"></div>
+      <div class="navrow"><button class="btn btn-cream" data-go="1">← Back</button><button class="btn btn-yolk" data-go="3">Next — pick a finish</button></div>
+    </div>
+
+    <div class="panel" data-p="3">
+      <h2>AND THE OUTSIDE?</h2>
+      <p class="say">how it looks when we lift the box lid</p>
+      <div class="opts" id="g-finish"></div>
+      <div style="margin-top:22px">
+        <div class="say" style="margin:0 0 4px">Anything written on it?</div>
+        <textarea class="msgfield" id="msg" rows="1" maxlength="26" placeholder="happy birthday, Nan"></textarea>
+        <p class="tiny">Piped by hand, up to 26 characters. Free — we're not going to charge you for icing.</p>
+      </div>
+      <div class="navrow"><button class="btn btn-cream" data-go="2">← Back</button><button class="btn btn-yolk" data-go="4">Next — check the docket</button></div>
+    </div>
+
+    <div class="panel" data-p="4">
+      <h2>THE DOCKET</h2>
+      <p class="say">have a read, then send it to the bench</p>
+      <div class="docket">
+        <h3>CAKE ORDER</h3>
+        <div class="ref">no. 0248 · 72 hours notice</div>
+        <div id="lines"></div>
+        <div class="total"><span class="k">all in</span><span class="v" id="dtotal">$135</span></div>
+        <div class="navrow"><button class="btn btn-yolk" id="send">Send it to the bakers</button><button class="btn btn-cream" data-go="0">Start again</button></div>
+        <div class="sent" id="sent">
+          <span class="stamp">ON THE BOARD</span>
+          <p>We'll sketch it and email you by tomorrow lunchtime.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="scallop"></div>
+<footer>
+  <div class="foot-in">
+    <span>14 Mill Row · Tue–Fri 10–4, Sat–Sun 9–3 · <a href="#">hello@proofbakehouse.com</a></span>
+    <span>Cakes travel in a fitted box, by bicycle, before 4pm.</span>
+  </div>
+</footer>
+
+<script>
+/* ═══ the menu ═══ */
+const DATA = {
+  size: [
+    {id:'one',   name:'One tier',    note:'serves 12, 8 inch',  price:95,  tiers:1},
+    {id:'two',   name:'Two tiers',   note:'serves 25',          price:135, tiers:2},
+    {id:'three', name:'Three tiers', note:'serves 40, a proper occasion', price:180, tiers:3}
+  ],
+  sponge: [
+    {id:'vanilla',   name:'Vanilla',        note:'bourbon vanilla, buttermilk',   price:0,  col:'#F3E3CE'},
+    {id:'chocolate', name:'Dark chocolate', note:'cocoa bloomed in hot coffee',   price:8,  col:'#6B4432'},
+    {id:'lemon',     name:'Lemon',          note:'zest folded in, syrup soaked',  price:6,  col:'#F2DDA0'},
+    {id:'red',       name:'Red velvet',     note:'buttermilk, a whisper of cocoa',price:8,  col:'#B8465A'}
+  ],
+  filling: [
+    {id:'jam',     name:'Raspberry jam',   note:'cooked here on Tuesdays',   price:0,  col:'#C4485D'},
+    {id:'caramel', name:'Salted caramel',  note:'dark, just short of burnt', price:10, col:'#C08F45'},
+    {id:'curd',    name:'Lemon curd',      note:'nine lemons a batch',       price:8,  col:'#EFB43A'},
+    {id:'ganache', name:'Chocolate ganache',note:'70%, whipped soft',        price:12, col:'#4A2C1B'}
+  ],
+  finish: [
+    {id:'naked',  name:'Naked',        note:'sides scraped back, layers showing', price:0,  col:'#F3E3CE'},
+    {id:'butter', name:'Buttercream',  note:'smooth, swiss meringue',             price:14, col:'#FFFDF7'},
+    {id:'berry',  name:'Berry swirl',  note:'jam rippled through the coat',       price:18, col:'#EFA9B8'},
+    {id:'choc',   name:'Chocolate coat',note:'poured, with a proper drip',        price:18, col:'#5B3A2A'}
+  ]
+};
+
+const pick = { size:'two', sponge:'vanilla', filling:'jam', finish:'naked' };
+let step = 0, message = '';
+
+const get = (k) => DATA[k].find(o => o.id === pick[k]);
+
+/* ═══ build the option cards ═══ */
+Object.keys(DATA).forEach(k => {
+  const box = document.getElementById('g-' + k);
+  box.innerHTML = DATA[k].map(o => `
+    <button class="o ${pick[k]===o.id?'on':''}" data-k="${k}" data-id="${o.id}">
+      ${o.price ? `<span class="cost">+$${o.price}</span>` : ''}
+      ${o.col ? `<span class="sw" style="background:${o.col}"></span>` : ''}
+      <b>${o.name}</b><small>${o.note}</small>
+    </button>`).join('');
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.o'); if(!b) return;
+    pick[b.dataset.k] = b.dataset.id;
+    box.querySelectorAll('.o').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    render();
+  });
+});
+
+/* ═══ draw the cake ═══ */
+function drawCake(){
+  const tiers = get('size').tiers,
+        sponge = get('sponge').col,
+        fill = get('filling').col,
+        finish = get('finish'),
+        coat = finish.col,
+        naked = finish.id === 'naked',
+        ink = '#33241C';
+
+  // widest at the bottom, narrowing as it goes up
+  const plan = [
+    {w:212, h:76}, {w:158, h:64}, {w:106, h:52}
+  ].slice(0, tiers);
+
+  let y = 300, out = '';
+
+  plan.forEach((t, i) => {
+    const x = 180 - t.w / 2, top = y - t.h;
+    // the tier body, in whatever it's coated with
+    out += `<rect x="${x}" y="${top}" width="${t.w}" height="${t.h}" rx="6" fill="${naked ? sponge : coat}" stroke="${ink}" stroke-width="3.4"/>`;
+
+    // the cut-away slice on the right, showing sponge and filling
+    const cw = 44, cx = x + t.w - cw - 6;
+    out += `<rect x="${cx}" y="${top + 4}" width="${cw}" height="${t.h - 8}" fill="${sponge}" stroke="${ink}" stroke-width="2.6"/>`;
+    const bands = t.h > 60 ? 2 : 1;
+    for(let b = 1; b <= bands; b++){
+      const by = top + (t.h / (bands + 1)) * b - 5;
+      out += `<rect x="${cx}" y="${by}" width="${cw}" height="9" fill="${fill}"/>`;
+    }
+    // naked cakes show the filling squeezing out at the sides too
+    if(naked){
+      for(let b = 1; b <= bands; b++){
+        const by = top + (t.h / (bands + 1)) * b - 5;
+        out += `<rect x="${x}" y="${by}" width="${t.w}" height="9" fill="${fill}" opacity=".92"/>`;
+      }
+    }
+    // a drip along the top edge of coated cakes
+    if(!naked){
+      out += `<path d="M${x} ${top + 6} q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0" fill="${coat}" stroke="${ink}" stroke-width="2.4" stroke-linejoin="round" opacity=".95"/>`;
+    }
+    y = top;
+  });
+
+  // whatever is sitting on top
+  const topY = y;
+  if(get('finish').id === 'berry' || get('filling').id === 'jam'){
+    out += `<circle cx="164" cy="${topY - 12}" r="11" fill="#C4485D" stroke="${ink}" stroke-width="3"/>
+            <circle cx="188" cy="${topY - 18}" r="13" fill="#D65B70" stroke="${ink}" stroke-width="3"/>
+            <circle cx="210" cy="${topY - 11}" r="10" fill="#C4485D" stroke="${ink}" stroke-width="3"/>
+            <path d="M188 ${topY - 33}c-7-6-3-12 2-14 1 6 5 10 9 11-2 5-7 6-11 3z" fill="#8FAE63" stroke="${ink}" stroke-width="2.4"/>`;
+  } else {
+    out += `<path d="M172 ${topY - 6}v-26M188 ${topY - 6}v-32M204 ${topY - 6}v-24" stroke="#EFB43A" stroke-width="7" stroke-linecap="round"/>
+            <g fill="#C4485D"><circle cx="172" cy="${topY - 36}" r="5"/><circle cx="188" cy="${topY - 42}" r="5"/><circle cx="204" cy="${topY - 34}" r="5"/></g>`;
+  }
+
+  // a piped plaque on the front, if there's a message
+  const plaque = message.trim() ? `
+    <g transform="translate(180 ${300 - plan[0].h / 2}) rotate(-2)">
+      <rect x="-84" y="-19" width="168" height="38" rx="19" fill="#FBF3E2" stroke="${ink}" stroke-width="3"/>
+      <text x="0" y="8" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="24" fill="#C4485D">${message.replace(/[<>&]/g,'')}</text>
+    </g>` : '';
+
+  document.getElementById('stage').innerHTML = `
+    <svg viewBox="0 0 360 380" style="width:100%;max-width:330px;margin:0 auto" aria-label="Your cake so far">
+      <ellipse cx="180" cy="344" rx="140" ry="16" fill="#33241C" opacity=".14"/>
+      <path d="M156 336h48l-6-22h-36z" fill="#E9DDC6" stroke="#33241C" stroke-width="3"/>
+      <ellipse cx="180" cy="336" rx="44" ry="9" fill="#DCCDB2" stroke="#33241C" stroke-width="3"/>
+      <ellipse cx="180" cy="303" rx="132" ry="17" fill="#FFFDF7" stroke="#33241C" stroke-width="3.4"/>
+      ${out}
+      ${plaque}
+    </svg>`;
+}
+
+/* ═══ price + docket ═══ */
+function total(){
+  return get('size').price + get('sponge').price + get('filling').price + get('finish').price;
+}
+
+function render(){
+  drawCake();
+  const t = total();
+  document.getElementById('run').textContent = '$' + t;
+  document.getElementById('dtotal').textContent = '$' + t;
+  document.getElementById('cap').textContent =
+    get('size').name.toLowerCase() + ' · ' + get('sponge').name.toLowerCase() + ' · ' + get('filling').name.toLowerCase();
+
+  const row = (k, o) => `<div class="line"><span class="k">${k}</span><span class="v">${o.name}<br><span style="opacity:.55;font-size:12.5px">${o.note}</span></span><span class="c">${o.price ? '+$' + o.price : '—'}</span></div>`;
+  document.getElementById('lines').innerHTML =
+    `<div class="line"><span class="k">size</span><span class="v">${get('size').name}<br><span style="opacity:.55;font-size:12.5px">${get('size').note}</span></span><span class="c">$${get('size').price}</span></div>`
+    + row('sponge', get('sponge'))
+    + row('filling', get('filling'))
+    + row('finish', get('finish'))
+    + `<div class="line"><span class="k">written</span><span class="v">${message.trim() ? '“' + message.replace(/[<>&]/g,'') + '”' : 'nothing on top'}</span><span class="c">—</span></div>`
+    + `<div class="line"><span class="k">ready</span><span class="v">72 hours from confirmation, collected from Mill Row or delivered by bike</span><span class="c">—</span></div>`;
+}
+
+/* ═══ steps ═══ */
+function goto(n){
+  step = n;
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', +p.dataset.p === n));
+  document.querySelectorAll('.st').forEach(s => {
+    const i = +s.dataset.s;
+    s.classList.toggle('on', i === n);
+    s.classList.toggle('done', i < n);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if(g){ goto(+g.dataset.go); return; }
+  const s = e.target.closest('.st');
+  if(s) goto(+s.dataset.s);
+});
+
+document.getElementById('msg').addEventListener('input', e => { message = e.target.value; render(); });
+document.getElementById('send').addEventListener('click', () => {
+  document.getElementById('sent').classList.add('show');
+  document.getElementById('send').textContent = 'Sent';
+});
+
+render();
+</script>
+</body>
+</html>
