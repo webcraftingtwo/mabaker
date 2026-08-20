@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proof Bakehouse — one bake a day</title>
+<title>Melithea’s Bakes — one bake a day</title>
+<meta name="description" content="Melithea’s Bakes — one bake a day, out of the oven at six. Cakes, loaves and small things at 14 Mill Row, until the board is empty.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C4485D'/%3E%3Cpath d='M6 14h20v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z' fill='%23FBF3E2'/%3E%3Crect x='6' y='17.5' width='20' height='3.5' fill='%23EFB43A'/%3E%3Ccircle cx='16' cy='10' r='4' fill='%23EFB43A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Karla:ital,wght@0,400;0,600;0,800;1,400&family=Permanent+Marker&family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
@@ -62,7 +64,11 @@ a{color:inherit}
   transform:rotate(1deg);border:0;cursor:pointer;font-family:var(--body);
 }
 .boxlink .n{background:var(--butter);color:var(--ink);border-radius:99px;min-width:20px;padding:0 6px;text-align:center;font-size:12px}
-@media(max-width:780px){.links li:nth-child(-n+3){display:none}}
+@media(max-width:780px){
+  .bar{flex-wrap:wrap;justify-content:center;gap:8px 14px;padding:10px clamp(12px,4vw,46px)}
+  .links{width:100%;justify-content:center;flex-wrap:wrap;gap:10px 16px}
+  .links a{font-size:14px}
+}
 
 /* ══ hero ══ */
 .hero{
@@ -222,6 +228,12 @@ a{color:inherit}
 .kind{font-family:var(--body);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;opacity:.5;margin-bottom:6px}
 .card h3{font-family:var(--marker);font-size:20px;line-height:1.06;margin:0 0 8px;letter-spacing:-.005em}
 .card p{margin:0 0 16px;font-size:13.5px;line-height:1.55;opacity:.78}
+.more{
+  font-family:var(--hand);font-weight:700;font-size:17px;line-height:1;color:var(--jam);
+  text-decoration:none;align-self:flex-start;margin:-8px 0 15px;
+  border-bottom:2px solid rgba(196,72,93,.35);
+}
+.more:hover{border-bottom-color:var(--jam)}
 .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
 .price{
   font-family:var(--marker);font-size:23px;line-height:1;
@@ -266,6 +278,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
   background:var(--paper);border:2px solid var(--ink);border-radius:8px;
   box-shadow:6px 7px 0 rgba(51,36,28,.25);padding:12px 14px;
   display:flex;align-items:center;gap:14px;transform:translateY(160%) rotate(-1.5deg);
+  max-width:calc(100vw - 24px);
   transition:transform .34s cubic-bezier(.3,1.2,.4,1);
 }
 .tray.up{transform:translateY(0) rotate(-1.5deg)}
@@ -284,7 +297,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 
 <!-- ══════ BAR ══════ -->
 <div class="bar">
-  <a class="plaque" href="#top"><span class="nm">Proof</span><span class="sub">Bakehouse</span></a>
+  <a class="plaque" href="#top"><span class="nm">Melithea’s</span><span class="sub">Bakes</span></a>
   <ul class="links">
     <li><a href="#shop">today's bake</a></li>
     <li><a href="#cake">whole cakes</a></li>
@@ -311,7 +324,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
       <p class="hero-note">One bake a day, started before it's light out. Everything on this page was flour, butter and a bit of patience about four hours ago. When the board's empty, that's us done till tomorrow.</p>
       <div class="hero-btns">
         <a class="btn btn-yolk" href="#shop">Shop today's bake</a>
-        <a class="btn btn-cream" href="#cake">Order a whole cake</a>
+        <a class="btn btn-cream" href="cake-builder.html">Order a whole cake</a>
       </div>
     </div>
 
@@ -393,16 +406,16 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
     <span class="tiny">cakes · loaves · small things</span>
     <svg class="squiggle" width="150" height="9" viewBox="0 0 150 9" fill="none" stroke="#C4485D" stroke-width="2.6" stroke-linecap="round"><path d="M3 6c12-5 24 3 36-1s24-4 36 0 24 4 36 0 21-3 36 1"/></svg>
   </a>
-  <a class="door d2" href="#cake">
+  <a class="door d2" href="cake-builder.html">
     <span class="sm">order a</span>
     <span class="big">WHOLE CAKE</span>
     <span class="tiny">72 hours notice, please</span>
     <svg class="squiggle" width="150" height="9" viewBox="0 0 150 9" fill="none" stroke="#EFB43A" stroke-width="2.6" stroke-linecap="round"><path d="M3 5c14 4 26-4 38 0s26 5 38 1 24-4 36 0 20 3 32-2"/></svg>
   </a>
   <a class="door d3" href="#bench">
-    <span class="sm">meet the</span>
-    <span class="big">BAKERS</span>
-    <span class="tiny">four of us, one oven</span>
+    <span class="sm">read the</span>
+    <span class="big">BENCH NOTES</span>
+    <span class="tiny">what came in, what's gone</span>
     <svg class="squiggle" width="150" height="9" viewBox="0 0 150 9" fill="none" stroke="#7C4A6B" stroke-width="2.6" stroke-linecap="round"><path d="M3 4c13 5 25-3 37 1s25 4 37 0 25-4 37 0 18 4 33-1"/></svg>
   </a>
 </nav>
@@ -456,7 +469,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
         <span class="ic" style="background:var(--plum)">
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1.5 4h13v8h-13z"/><path d="M1.5 4.5L8 9l6.5-4.5"/></svg>
         </span>
-        <span>hello@proofbakehouse.com<br>we answer between bakes</span>
+        <span>hello@melitheasbakes.com<br>we answer between bakes</span>
       </li>
     </ul>
   </div>
@@ -652,7 +665,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
     <article class="card" data-cat="small">
       <span class="tape"></span>
       <div class="art a6">
-        <span class="tag">6 left</span>
+        <span class="tag low">4 left</span>
         <svg width="152" height="140" viewBox="0 0 152 140">
           <ellipse cx="76" cy="120" rx="52" ry="7" fill="#33241C" opacity=".16"/>
           <path d="M25 78h102l-6 26a8 8 0 0 1-8 6H39a8 8 0 0 1-8-6z" fill="#D9A85F" stroke="#33241C" stroke-width="3" stroke-linejoin="round"/>
@@ -674,6 +687,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
         <div class="kind">tart · serves 6</div>
         <h3>Lemon curd tart</h3>
         <p>Sharp enough to make you blink. We torch the meringue when you order it.</p>
+        <a class="more" href="lemon-curd-tart.html">see how it's made →</a>
         <div class="foot">
           <div class="price">$28<em>whole tart</em></div>
           <button class="add" data-price="28">＋ add</button>
@@ -688,8 +702,8 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
     <div>
       <span class="pre">got something to celebrate?</span>
       <h3 class="hd">TELL US THE OCCASION,<br>WE'LL BUILD THE CAKE</h3>
-      <p>Pick a sponge, a filling and a finish and we'll bake it into two or three tiers. From $95. We'll sketch it, send you the sketch, and only start once you say yes.</p>
-      <a class="btn btn-yolk" href="#cake">Start a cake order</a>
+      <p>Pick a sponge, a filling and a finish and we'll bake it into one, two or three tiers. From $95. We'll sketch it, send you the sketch, and only start once you say yes.</p>
+      <a class="btn btn-yolk" href="cake-builder.html">Start a cake order</a>
     </div>
     <div class="slice">
       <svg width="210" height="180" viewBox="0 0 210 180" aria-label="A slice of layer cake">
@@ -712,11 +726,11 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 <footer>
   <div class="fgrid">
     <div>
-      <h5>Proof Bakehouse</h5>
+      <h5>Melithea’s Bakes</h5>
       <ul>
         <li>14 Mill Row, corner of Beck Street</li>
-        <li>hello@proofbakehouse.com</li>
-        <li>(555) 018 4402</li>
+        <li><a href="mailto:hello@melitheasbakes.com">hello@melitheasbakes.com</a></li>
+        <li><a href="tel:+15550184402">(555) 018 4402</a></li>
       </ul>
     </div>
     <div>
@@ -731,22 +745,23 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
       <h5>the shop</h5>
       <ul>
         <li><a href="#shop">Today's bake</a></li>
-        <li><a href="#cake">Whole cakes</a></li>
-        <li><a href="#shop">Loaves</a></li>
-        <li><a href="#shop">Gift notes</a></li>
+        <li><a href="cake-builder.html">Build a whole cake</a></li>
+        <li><a href="lemon-curd-tart.html">Lemon curd tart</a></li>
+        <li><a href="#f-loaf">Loaves</a></li>
+        <li><a href="#f-small">Small things</a></li>
       </ul>
     </div>
     <div>
       <h5>the small print</h5>
       <ul>
-        <li><a href="#top">Delivery &amp; collection</a></li>
-        <li><a href="#top">Allergens</a></li>
-        <li><a href="#top">Where our flour comes from</a></li>
+        <li><a href="#visit">Collect from 10am, or delivered by bike before 4pm</a></li>
+        <li>Allergens: one small kitchen — wheat, egg, dairy and nuts are all in the air.</li>
+        <li>Flour stoneground 40 miles away, butter from the same farm since 2019.</li>
       </ul>
     </div>
   </div>
   <div class="copy">
-    <span>© 2026 Proof Bakehouse — baked, not assembled.</span>
+    <span>© 2026 Melithea’s Bakes — baked, not assembled.</span>
     <span>Free delivery over $40, by bicycle, before 4pm.</span>
   </div>
 </footer>
@@ -756,35 +771,60 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
     <div class="lbl" id="traylbl">nothing yet</div>
     <div class="amt" id="trayamt">$0</div>
   </div>
-  <button>check out</button>
+  <button id="checkout">check out</button>
 </div>
 
 <script>
-/* filter */
-document.getElementById('chips').addEventListener('click', e => {
-  const c = e.target.closest('.chip'); if(!c) return;
-  document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
-  c.classList.add('on');
-  const f = c.dataset.f;
+/* ══ filter, driven by the chips or by a #f-… link from anywhere ══ */
+const FILTERS = ['all','cake','cupcake','loaf','small'];
+function applyFilter(f){
+  if(FILTERS.indexOf(f) < 0) return false;
+  document.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x.dataset.f === f));
   document.querySelectorAll('.card').forEach(card =>
     card.classList.toggle('hide', f !== 'all' && card.dataset.cat !== f));
+  return true;
+}
+document.getElementById('chips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if(!c) return;
+  applyFilter(c.dataset.f);
 });
 
-/* peek inside */
+/* ══ peek inside ══ */
 document.querySelectorAll('.peekbtn').forEach(b =>
   b.addEventListener('click', () => b.closest('.card').classList.add('peek')));
 document.querySelectorAll('.shut').forEach(b =>
   b.addEventListener('click', () => b.closest('.card').classList.remove('peek')));
 
-/* the box */
-let n = 0, sum = 0;
+/* ══ the box — kept in step with the other pages ══ */
+const BOX = (function(){
+  const KEY = 'melitheas-box';
+  let s = {n:0, sum:0};
+  try{
+    const raw = JSON.parse(localStorage.getItem(KEY));
+    if(raw && typeof raw.n === 'number' && typeof raw.sum === 'number') s = raw;
+  }catch(e){}
+  const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} };
+  return {
+    get n(){ return s.n; },
+    get sum(){ return s.sum; },
+    add(count, amount){ s.n += count; s.sum += amount; save(); },
+    clear(){ s = {n:0, sum:0}; save(); }
+  };
+})();
+
 const tray = document.getElementById('tray');
+function paintBox(){
+  document.getElementById('navcnt').textContent = BOX.n;
+  document.getElementById('traylbl').textContent =
+    BOX.n === 0 ? 'nothing yet' : BOX.n === 1 ? '1 thing in your box' : BOX.n + ' things in your box';
+  document.getElementById('trayamt').textContent = '$' + BOX.sum;
+}
+paintBox();
+
 document.querySelectorAll('.add').forEach(btn => {
   btn.addEventListener('click', () => {
-    n++; sum += parseFloat(btn.dataset.price);
-    document.getElementById('navcnt').textContent = n;
-    document.getElementById('traylbl').textContent = n === 1 ? '1 thing in your box' : n + ' things in your box';
-    document.getElementById('trayamt').textContent = '$' + sum;
+    BOX.add(1, parseFloat(btn.dataset.price));
+    paintBox();
     tray.classList.add('up');
     btn.classList.add('done'); btn.textContent = '✓ in the box';
     setTimeout(() => { btn.classList.remove('done'); btn.textContent = '＋ add'; }, 1300);
@@ -792,13 +832,41 @@ document.querySelectorAll('.add').forEach(btn => {
 });
 document.getElementById('navbox').addEventListener('click', () => tray.classList.add('up'));
 
-/* gentle anchor scrolling, only where it's asked for */
+document.getElementById('checkout').addEventListener('click', function(){
+  if(BOX.n === 0){ document.getElementById('traylbl').textContent = 'nothing in it yet'; return; }
+  document.getElementById('traylbl').textContent = 'boxed and waiting';
+  this.textContent = '✓ ordered';
+  BOX.clear();
+  document.getElementById('navcnt').textContent = '0';
+  setTimeout(() => { this.textContent = 'check out'; tray.classList.remove('up'); paintBox(); }, 2600);
+});
+
+/* ══ gentle anchor scrolling, only where it's asked for ══ */
+function jumpTo(hash, smooth){
+  const how = {behavior: smooth ? 'smooth' : 'auto', block: 'start'};
+  if(hash.indexOf('#f-') === 0){
+    if(!applyFilter(hash.slice(3))) return false;
+    document.getElementById('shop').scrollIntoView(how);
+    return true;
+  }
+  let t = null;
+  try{ t = document.querySelector(hash); }catch(e){}
+  if(!t) return false;
+  t.scrollIntoView(how);
+  return true;
+}
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+    const h = a.getAttribute('href');
+    if(h.length < 2) return;
+    if(jumpTo(h, true)){
+      e.preventDefault();
+      history.replaceState(null, '', h);
+    }
   });
 });
+if(location.hash) jumpTo(location.hash, false);
+window.addEventListener('hashchange', () => jumpTo(location.hash, true));
 </script>
 </body>
 </html>

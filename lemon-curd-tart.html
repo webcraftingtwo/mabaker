@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lemon curd tart — Proof Bakehouse</title>
+<title>Lemon curd tart — Melithea’s Bakes</title>
+<meta name="description" content="Nine lemons a tart, blind-baked butter pastry and meringue torched to order. Six baked a day at Melithea’s Bakes, from $7 a slice.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C4485D'/%3E%3Cpath d='M6 14h20v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z' fill='%23FBF3E2'/%3E%3Crect x='6' y='17.5' width='20' height='3.5' fill='%23EFB43A'/%3E%3Ccircle cx='16' cy='10' r='4' fill='%23EFB43A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Karla:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -17,6 +19,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 svg{display:block}
+a{color:inherit}
 :focus-visible{outline:3px solid var(--butter);outline-offset:3px}
 ::selection{background:var(--butter)}
 
@@ -29,7 +32,11 @@ svg{display:block}
 .links a:hover{border-bottom-color:var(--jam);color:var(--jam)}
 .boxlink{display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);padding:9px 15px;border-radius:20px;font-weight:700;font-size:14px;transform:rotate(1deg);border:0;cursor:pointer;font-family:var(--body)}
 .boxlink .n{background:var(--butter);color:var(--ink);border-radius:99px;min-width:20px;padding:0 6px;text-align:center;font-size:12px}
-@media(max-width:820px){.links li:nth-child(-n+3){display:none}}
+@media(max-width:820px){
+  .bar{flex-wrap:wrap;justify-content:center;gap:8px 14px;padding:10px clamp(12px,4vw,46px)}
+  .links{width:100%;justify-content:center;flex-wrap:wrap;gap:10px 16px}
+  .links a{font-size:14px}
+}
 
 .crumbs{max-width:1160px;margin:0 auto;padding:16px clamp(16px,4vw,46px) 0;font-family:var(--hand);font-weight:700;font-size:20px;color:rgba(51,36,28,.55)}
 .crumbs a{text-decoration:none;color:inherit}
@@ -104,7 +111,7 @@ h1{font-family:var(--marker);font-size:clamp(36px,5.4vw,58px);line-height:.92;ma
 .with{max-width:1160px;margin:0 auto;padding:clamp(34px,4.5vw,54px) clamp(16px,4vw,46px)}
 .with h2{font-family:var(--hand);font-weight:700;font-size:32px;margin:0 0 18px}
 .mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
-.m{background:var(--paper);border:2px solid var(--ink);border-radius:5px;box-shadow:5px 6px 0 rgba(51,36,28,.13);overflow:hidden;transition:.15s ease}
+.m{background:var(--paper);border:2px solid var(--ink);border-radius:5px;box-shadow:5px 6px 0 rgba(51,36,28,.13);overflow:hidden;transition:.15s ease;display:block;color:inherit;text-decoration:none}
 .m:nth-child(3n+1){transform:rotate(-.7deg)}
 .m:nth-child(3n){transform:rotate(.6deg)}
 .m:hover{transform:rotate(0) translateY(-4px)}
@@ -117,29 +124,33 @@ h1{font-family:var(--marker);font-size:clamp(36px,5.4vw,58px);line-height:.92;ma
 footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);padding:22px clamp(16px,4vw,46px) 30px}
 .foot-in{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:13.5px;color:rgba(251,243,226,.72)}
 .foot-in a{color:var(--butter)}
+.foot-nav{display:flex;gap:16px;flex-wrap:wrap}
+.foot-nav a{color:rgba(251,243,226,.78);text-decoration:none}
+.foot-nav a:hover{color:var(--butter)}
 
 .tray{position:fixed;right:clamp(12px,3vw,26px);bottom:clamp(12px,3vw,26px);z-index:70;background:var(--paper);border:2px solid var(--ink);border-radius:8px;box-shadow:6px 7px 0 rgba(51,36,28,.25);padding:12px 14px;display:flex;align-items:center;gap:14px;transform:translateY(160%) rotate(-1.5deg);transition:transform .34s cubic-bezier(.3,1.2,.4,1)}
 .tray.up{transform:translateY(0) rotate(-1.5deg)}
 .tray .lbl{font-family:var(--hand);font-weight:700;font-size:19px;line-height:1}
 .tray .amt{font-family:var(--marker);font-size:19px;margin-top:3px}
 .tray button{font-family:var(--body);font-weight:800;font-size:13.5px;cursor:pointer;background:var(--butter);border:2px solid var(--ink);border-radius:20px;padding:10px 17px;color:var(--ink)}
+.tray{max-width:calc(100vw - 24px)}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
 <div class="bar">
-  <a class="plaque" href="#"><span class="nm">Proof</span><span class="sub">Bakehouse</span></a>
+  <a class="plaque" href="index.html"><span class="nm">Melithea’s</span><span class="sub">Bakes</span></a>
   <ul class="links">
-    <li><a href="#">today's bake</a></li>
-    <li><a href="#">whole cakes</a></li>
-    <li><a href="#">the bench</a></li>
-    <li><a href="#">visit</a></li>
+    <li><a href="index.html#shop">today's bake</a></li>
+    <li><a href="cake-builder.html">whole cakes</a></li>
+    <li><a href="index.html#bench">the bench</a></li>
+    <li><a href="index.html#visit">visit</a></li>
     <li><button class="boxlink" id="navbox">your box <span class="n" id="navcnt">0</span></button></li>
   </ul>
 </div>
 
-<div class="crumbs"><a href="#">today's bake</a> → <a href="#">small things</a> → <b>lemon curd tart</b></div>
+<div class="crumbs"><a href="index.html#shop">today's bake</a> → <a href="index.html#f-small">small things</a> → <b>lemon curd tart</b></div>
 
 <section class="product">
 
@@ -309,38 +320,44 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 <section class="with">
   <h2>People usually put these in the box too</h2>
   <div class="mini">
-    <div class="m">
+    <a class="m" href="index.html#f-cake">
       <div class="top" style="background:#F6DCE0">
         <svg width="104" height="92" viewBox="0 0 152 140"><path d="M26 60h100v58a6 6 0 0 1-6 6H32a6 6 0 0 1-6-6z" fill="#FBF3E2" stroke="#33241C" stroke-width="3"/><rect x="27" y="76" width="98" height="11" fill="#C4485D"/><rect x="27" y="99" width="98" height="10" fill="#C08F45"/><path d="M26 60h100v9c-9 8-16-3-24 3s-13 4-20-1-11 6-20 1-10-5-17-1-14 2-19-3z" fill="#FFFDF7" stroke="#33241C" stroke-width="3" stroke-linejoin="round"/><circle cx="78" cy="43" r="11" fill="#D65B70" stroke="#33241C" stroke-width="2.4"/></svg>
       </div>
       <div class="txt"><h3>Raspberry ripple</h3><span class="p">$42</span></div>
-    </div>
-    <div class="m">
+    </a>
+    <a class="m" href="index.html#f-small">
       <div class="top" style="background:#EADBCB">
         <svg width="104" height="92" viewBox="0 0 152 140"><circle cx="76" cy="72" r="42" fill="#C08F45" stroke="#33241C" stroke-width="3"/><g fill="#4A2C1B"><circle cx="61" cy="58" r="8"/><circle cx="91" cy="64" r="9"/><circle cx="69" cy="88" r="7.5"/><circle cx="94" cy="90" r="6.5"/></g></svg>
       </div>
       <div class="txt"><h3>Rye chocolate cookies</h3><span class="p">$12</span></div>
-    </div>
-    <div class="m">
+    </a>
+    <a class="m" href="index.html#f-loaf">
       <div class="top" style="background:#F3E3CE">
         <svg width="104" height="92" viewBox="0 0 152 140"><path d="M29 66c0-14 12-22 47-22s47 8 47 22v38a8 8 0 0 1-8 8H37a8 8 0 0 1-8-8z" fill="#D9A85F" stroke="#33241C" stroke-width="3"/><path d="M29 66c0-14 12-22 47-22s47 8 47 22c0 6-6 9-16 9H45c-10 0-16-3-16-9z" fill="#E8BE7C" stroke="#33241C" stroke-width="3"/><path d="M47 58c6-8 14-8 20 0M79 58c6-8 14-8 20 0" stroke="#C08F45" stroke-width="3.4" stroke-linecap="round" fill="none"/></svg>
       </div>
       <div class="txt"><h3>Milk bread</h3><span class="p">$9</span></div>
-    </div>
+    </a>
   </div>
 </section>
 
 <div class="scallop"></div>
 <footer>
   <div class="foot-in">
-    <span>14 Mill Row · Tue–Fri 10–4, Sat–Sun 9–3 · <a href="#">hello@proofbakehouse.com</a></span>
+    <span>14 Mill Row · Tue–Fri 10–4, Sat–Sun 9–3 · <a href="mailto:hello@melitheasbakes.com">hello@melitheasbakes.com</a></span>
+    <span class="foot-nav">
+      <a href="index.html#shop">today's bake</a>
+      <a href="cake-builder.html">whole cakes</a>
+      <a href="index.html#bench">the bench</a>
+      <a href="index.html#visit">visit</a>
+    </span>
     <span>Free delivery over $40, by bicycle, before 4pm.</span>
   </div>
 </footer>
 
 <div class="tray" id="tray">
   <div><div class="lbl" id="traylbl">nothing yet</div><div class="amt" id="trayamt">$0</div></div>
-  <button>check out</button>
+  <button id="checkout">check out</button>
 </div>
 
 <script>
@@ -378,19 +395,49 @@ group('notepick', b => {
 document.getElementById('plus').onclick = () => { qty = Math.min(9, qty + 1); paint(); };
 document.getElementById('minus').onclick = () => { qty = Math.max(1, qty - 1); paint(); };
 
-/* box */
-let n = 0, sum = 0;
+/* ═══ the box — kept in step with the other pages ═══ */
+const BOX = (function(){
+  const KEY = 'melitheas-box';
+  let s = {n:0, sum:0};
+  try{
+    const raw = JSON.parse(localStorage.getItem(KEY));
+    if(raw && typeof raw.n === 'number' && typeof raw.sum === 'number') s = raw;
+  }catch(e){}
+  const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} };
+  return {
+    get n(){ return s.n; },
+    get sum(){ return s.sum; },
+    add(count, amount){ s.n += count; s.sum += amount; save(); },
+    clear(){ s = {n:0, sum:0}; save(); }
+  };
+})();
+
+const tray = document.getElementById('tray');
+function paintBox(){
+  document.getElementById('navcnt').textContent = BOX.n;
+  document.getElementById('traylbl').textContent =
+    BOX.n === 0 ? 'nothing yet' : BOX.n === 1 ? '1 thing in your box' : BOX.n + ' things in your box';
+  document.getElementById('trayamt').textContent = '$' + BOX.sum;
+}
+paintBox();
+
 document.getElementById('tobox').addEventListener('click', function(){
-  n += qty; sum += (size + extra) * qty;
-  document.getElementById('navcnt').textContent = n;
-  document.getElementById('traylbl').textContent = n === 1 ? '1 thing in your box' : n + ' things in your box';
-  document.getElementById('trayamt').textContent = '$' + sum;
-  document.getElementById('tray').classList.add('up');
+  BOX.add(qty, (size + extra) * qty);
+  paintBox();
+  tray.classList.add('up');
   this.classList.add('done');
   this.firstElementChild.textContent = '✓ in the box';
   setTimeout(() => { this.classList.remove('done'); this.firstElementChild.textContent = 'Add to box'; }, 1400);
 });
-document.getElementById('navbox').onclick = () => document.getElementById('tray').classList.add('up');
+document.getElementById('navbox').onclick = () => tray.classList.add('up');
+document.getElementById('checkout').addEventListener('click', function(){
+  if(BOX.n === 0){ document.getElementById('traylbl').textContent = 'nothing in it yet'; return; }
+  document.getElementById('traylbl').textContent = 'boxed and waiting';
+  this.textContent = '✓ ordered';
+  BOX.clear();
+  document.getElementById('navcnt').textContent = '0';
+  setTimeout(() => { this.textContent = 'check out'; tray.classList.remove('up'); paintBox(); }, 2600);
+});
 
 paint();
 </script>
