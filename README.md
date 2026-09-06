@@ -29,7 +29,9 @@ quietly if that happens — the box just stops carrying between pages.
 ## Orders go to WhatsApp
 
 There is no backend. Every order path ends in a pre-filled WhatsApp message to
-**+263 77 693 1830**, and the customer sends it themselves:
+**+263 77 693 1830**, and the customer sends it themselves. The same number takes
+ordinary calls, so it appears twice wherever it is offered — once as `wa.me`, once as
+`tel:`:
 
 - **"Check out"** on the home page and the tart page writes the box out line by line —
   quantity, item, price, total — then asks for a name, collection or delivery, and when
@@ -40,10 +42,12 @@ There is no backend. Every order path ends in a pre-filled WhatsApp message to
 - The green bubble bottom-left of every page, the "come find us" block, the footers and
   two of the bench notes open an ordinary chat with a relevant opening line.
 
-The number lives in one place per page: `const WA_NUMBER = '263776931830'` in the script,
-and the `href` of the static links. It is the international form with no `+` and no
+The shop's details — **6996 Mkoba 18, Gweru**, **melissachikara4@gmail.com** and the
+number — are written into the markup of all three pages rather than templated. The number
+lives in one place per page in script: `const WA_NUMBER = '263776931830'`, plus the
+`href` of the static links. It is the international form with no `+` and no
 leading zero, which is what `wa.me` requires. **If the number changes, update both** —
-`grep -rn 'wa.me\|WA_NUMBER\|tel:' *.html` finds every occurrence.
+`grep -rn 'wa.me\|WA_NUMBER\|tel:\|mailto:\|Mkoba' *.html` finds every occurrence.
 
 ## How it fits together
 
