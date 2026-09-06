@@ -13,6 +13,7 @@
 :root{
   --jam:#C4485D;--paper:#FBF3E2;--paper-2:#F4E8D0;--kraft:#6B4B36;--kraft-dk:#573A28;
   --ink:#33241C;--butter:#EFB43A;--pistachio:#8FAE63;--plum:#7C4A6B;
+  --wa:#25D366;--wa-dk:#128C7E;
   --marker:'Permanent Marker',cursive;--hand:'Caveat',cursive;--body:'Karla',sans-serif;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)' opacity='.055'/%3E%3C/svg%3E");
 }
@@ -85,12 +86,12 @@ a{color:inherit}
 .tiny{font-size:12px;opacity:.55;margin-top:7px}
 
 .navrow{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
-.btn{font-family:var(--body);font-weight:800;font-size:15px;cursor:pointer;padding:13px 25px;border-radius:26px;border:2px solid var(--ink);transition:.14s ease}
+.btn{font-family:var(--body);font-weight:800;font-size:15px;line-height:1.2;cursor:pointer;padding:13px 25px;border-radius:26px;border:2px solid var(--ink);transition:.14s ease;display:inline-block;text-decoration:none}
 .btn-yolk{background:var(--butter);color:var(--ink);box-shadow:0 5px 0 var(--ink)}
 .btn-cream{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--ink)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
-.btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:0 5px 0 var(--ink)}
+.btn.is-off{opacity:.5;cursor:default;pointer-events:none;transform:none;box-shadow:0 5px 0 var(--ink)}
 
 /* docket */
 .docket{background:var(--paper);border:2px solid var(--ink);border-radius:4px;box-shadow:6px 7px 0 rgba(51,36,28,.16);padding:22px 22px 20px;position:relative;transform:rotate(-.5deg)}
@@ -116,6 +117,16 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 .foot-nav{display:flex;gap:16px;flex-wrap:wrap}
 .foot-nav a{color:rgba(251,243,226,.78);text-decoration:none}
 .foot-nav a:hover{color:var(--butter)}
+.wa-bubble{
+  position:fixed;left:clamp(12px,3vw,26px);bottom:clamp(12px,3vw,26px);z-index:70;
+  display:flex;align-items:center;gap:9px;text-decoration:none;
+  background:var(--wa);color:#fff;border:2px solid var(--ink);border-radius:30px;
+  padding:10px 16px 10px 12px;box-shadow:5px 6px 0 rgba(51,36,28,.25);
+  font-family:var(--body);font-weight:800;font-size:13.5px;transform:rotate(-1.5deg);
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.wa-bubble:hover{transform:rotate(0) translateY(-3px);box-shadow:7px 9px 0 rgba(51,36,28,.28)}
+@media(max-width:600px){.wa-bubble span{display:none}.wa-bubble{padding:12px;border-radius:50%}}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
 </style>
 </head>
@@ -207,16 +218,22 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
         <div class="ref">no. 0248 · 72 hours notice</div>
         <div id="lines"></div>
         <div class="total"><span class="k">all in</span><span class="v" id="dtotal">$135</span></div>
-        <div class="navrow"><button class="btn btn-yolk" id="send">Send it to the bakers</button><button class="btn btn-cream" id="restart" data-go="0">Start again</button></div>
+        <p class="tiny" style="margin:0 0 12px">The docket goes to the bench on WhatsApp — 077 693 1830 — and we'll carry on from there.</p>
+        <div class="navrow"><a class="btn btn-yolk" id="send" href="https://wa.me/263776931830" target="_blank" rel="noopener">Send it on WhatsApp</a><button class="btn btn-cream" id="restart" data-go="0">Start again</button></div>
         <div class="sent" id="sent">
           <span class="stamp">ON THE BOARD</span>
-          <p>We'll sketch it and email you by tomorrow lunchtime.</p>
+          <p>Send the message and we'll sketch it, then come back to you on WhatsApp by tomorrow lunchtime.</p>
         </div>
       </div>
     </div>
 
   </div>
 </section>
+
+<a class="wa-bubble" href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94%20about%20a%20whole%20cake%3A%20" aria-label="Message Melithea's Bakes on WhatsApp">
+  <svg width="21" height="21" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a7.9 7.9 0 0 0-6.8 12L0 16l4.2-1.1A8 8 0 1 0 8 0zm0 14.6a6.6 6.6 0 0 1-3.4-.9l-.2-.2-2.5.7.7-2.4-.2-.3A6.6 6.6 0 1 1 8 14.6zm3.6-4.9c-.2-.1-1.2-.6-1.3-.6-.2-.1-.3-.1-.4.1l-.6.6c-.1.2-.2.2-.4.1a5.4 5.4 0 0 1-2.7-2.3c-.2-.4.2-.3.5-1 .1-.1 0-.2 0-.4L6 4.9c-.2-.4-.3-.3-.5-.3h-.4a.7.7 0 0 0-.5.2 2 2 0 0 0-.7 1.6 3.6 3.6 0 0 0 .8 2 8 8 0 0 0 3.1 2.7c1.1.5 1.6.5 2.2.4a1.9 1.9 0 0 0 1.2-.8 1.5 1.5 0 0 0 .1-.9c0-.1-.2-.1-.4-.2z"/></svg>
+  <span>WhatsApp us</span>
+</a>
 
 <div class="scallop"></div>
 <footer>
@@ -227,6 +244,7 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
       <a href="lemon-curd-tart.html">lemon curd tart</a>
       <a href="index.html#bench">the bench</a>
       <a href="index.html#visit">visit</a>
+      <a href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94">whatsapp</a>
     </span>
     <span>Cakes travel in a fitted box, by bicycle, before 4pm.</span>
   </div>
@@ -366,6 +384,8 @@ function total(){
 
 function render(){
   drawCake();
+  document.getElementById('send').href =
+    'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(docketText());
   const t = total();
   document.getElementById('run').textContent = '$' + t;
   document.getElementById('dtotal').textContent = '$' + t;
@@ -403,17 +423,32 @@ document.addEventListener('click', e => {
 document.getElementById('msg').addEventListener('input', e => { message = e.target.value; clearSent(); render(); });
 
 /* ═══ sending, and starting over ═══ */
+const WA_NUMBER = '263776931830';
+function docketText(){
+  const line = (k, o) => k + ': ' + o.name + ' (' + o.note + ')' + (o.price ? ' — +$' + o.price : '');
+  return 'Hi Melithea’s Bakes — a cake order:\n\n'
+    + 'Size: ' + get('size').name + ' (' + get('size').note + ') — $' + get('size').price + '\n'
+    + line('Sponge', get('sponge')) + '\n'
+    + line('Filling', get('filling')) + '\n'
+    + line('Finish', get('finish')) + '\n'
+    + 'Written on top: ' + (message.trim() ? '“' + message.trim() + '”' : 'nothing') + '\n\n'
+    + 'All in: $' + total() + '\n'
+    + 'Ready: 72 hours from confirmation\n\n'
+    + 'Name:\nCollect or delivery:\nDate needed:';
+}
 function clearSent(){
   const send = document.getElementById('send');
-  if(!send.disabled) return;
+  if(!send.classList.contains('is-off')) return;
   document.getElementById('sent').classList.remove('show');
-  send.disabled = false;
-  send.textContent = 'Send it to the bakers';
+  send.classList.remove('is-off');
+  send.removeAttribute('aria-disabled');
+  send.textContent = 'Send it on WhatsApp';
 }
 document.getElementById('send').addEventListener('click', function(){
   document.getElementById('sent').classList.add('show');
-  this.disabled = true;
-  this.textContent = 'Sent';
+  this.classList.add('is-off');
+  this.setAttribute('aria-disabled', 'true');
+  this.textContent = 'Sent to WhatsApp';
 });
 document.getElementById('restart').addEventListener('click', () => {
   Object.assign(pick, DEFAULTS);
@@ -423,8 +458,9 @@ document.getElementById('restart').addEventListener('click', () => {
     b.classList.toggle('on', pick[b.dataset.k] === b.dataset.id));
   document.getElementById('sent').classList.remove('show');
   const send = document.getElementById('send');
-  send.disabled = false;
-  send.textContent = 'Send it to the bakers';
+  send.classList.remove('is-off');
+  send.removeAttribute('aria-disabled');
+  send.textContent = 'Send it on WhatsApp';
   render();
 });
 

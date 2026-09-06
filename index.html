@@ -21,6 +21,8 @@
   --butter:#EFB43A;
   --pistachio:#8FAE63;
   --plum:#7C4A6B;
+  --wa:#25D366;
+  --wa-dk:#128C7E;
   --marker:'Permanent Marker', 'Comic Sans MS', cursive;
   --hand:'Caveat', 'Segoe Script', cursive;
   --tall:'Amatic SC', 'Impact', sans-serif;
@@ -272,6 +274,26 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 .copy{max-width:1160px;margin:0 auto;border-top:1px solid rgba(251,243,226,.16);padding-top:16px;font-size:12px;color:rgba(251,243,226,.45);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 @media(max-width:760px){.fgrid{grid-template-columns:1fr 1fr}}
 
+/* ══ whatsapp ══ */
+.wa-bubble{
+  position:fixed;left:clamp(12px,3vw,26px);bottom:clamp(12px,3vw,26px);z-index:70;
+  display:flex;align-items:center;gap:9px;text-decoration:none;
+  background:var(--wa);color:#fff;border:2px solid var(--ink);border-radius:30px;
+  padding:10px 16px 10px 12px;box-shadow:5px 6px 0 rgba(51,36,28,.25);
+  font-family:var(--body);font-weight:800;font-size:13.5px;transform:rotate(-1.5deg);
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.wa-bubble:hover{transform:rotate(0) translateY(-3px);box-shadow:7px 9px 0 rgba(51,36,28,.28)}
+@media(max-width:600px){.wa-bubble span{display:none}.wa-bubble{padding:12px;border-radius:50%}}
+/* narrow screens: sit above the box tray rather than under it */
+@media(max-width:520px){.wa-bubble{bottom:calc(clamp(12px,3vw,26px) + 89px)}}
+@media(max-width:380px){.wa-bubble{bottom:calc(clamp(12px,3vw,26px) + 108px)}}
+.wa-inline{
+  color:var(--wa-dk);font-weight:700;text-decoration:none;
+  border-bottom:2px solid rgba(18,140,126,.35);
+}
+.wa-inline:hover{border-bottom-color:var(--wa-dk)}
+
 /* ══ box tray ══ */
 .tray{
   position:fixed;right:clamp(12px,3vw,26px);bottom:clamp(12px,3vw,26px);z-index:70;
@@ -284,11 +306,13 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
 .tray.up{transform:translateY(0) rotate(-1.5deg)}
 .tray .lbl{font-family:var(--hand);font-weight:700;font-size:19px;line-height:1}
 .tray .amt{font-family:var(--marker);font-size:19px;line-height:1;margin-top:3px}
-.tray button{
+.tray .go{
+  display:inline-block;text-decoration:none;line-height:1.2;white-space:nowrap;
   font-family:var(--body);font-weight:800;font-size:13.5px;cursor:pointer;
   background:var(--butter);border:2px solid var(--ink);border-radius:20px;padding:10px 17px;color:var(--ink);
 }
-.tray button:hover{background:var(--jam);color:var(--paper)}
+.tray .go:hover{background:var(--jam);color:var(--paper)}
+.tray .go.is-off{opacity:.6;pointer-events:none}
 
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation:none!important}}
 </style>
@@ -441,12 +465,12 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
     <h2>Sold out early lately</h2>
     <div class="note">
       <b>Pistachio bundt</b>
-      <p>Gone by 12:20 four days running. We've put two more in the oven, but if you want one, come before lunch or reserve it here.</p>
+      <p>Gone by 12:20 four days running. We've put two more in the oven, but if you want one, come before lunch or <a class="wa-inline" href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94%20could%20you%20put%20a%20pistachio%20bundt%20aside%20for%20me%3F">reserve one on WhatsApp</a>.</p>
       <span class="when">this week</span>
     </div>
     <div class="note">
       <b>Milk bread</b>
-      <p>Saturdays are hopeless. Order the night before and we'll set one aside with your name on the bag, in actual pencil.</p>
+      <p>Saturdays are hopeless. <a class="wa-inline" href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94%20could%20you%20set%20aside%20a%20milk%20bread%20for%20me%20tomorrow%3F">Message us the night before</a> and we'll set one aside with your name on the bag, in actual pencil.</p>
       <span class="when">every saturday</span>
     </div>
   </div>
@@ -470,6 +494,12 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1.5 4h13v8h-13z"/><path d="M1.5 4.5L8 9l6.5-4.5"/></svg>
         </span>
         <span>hello@melitheasbakes.com<br>we answer between bakes</span>
+      </li>
+      <li>
+        <span class="ic" style="background:var(--wa)">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a7.9 7.9 0 0 0-6.8 12L0 16l4.2-1.1A8 8 0 1 0 8 0zm0 14.6a6.6 6.6 0 0 1-3.4-.9l-.2-.2-2.5.7.7-2.4-.2-.3A6.6 6.6 0 1 1 8 14.6zm3.6-4.9c-.2-.1-1.2-.6-1.3-.6-.2-.1-.3-.1-.4.1l-.6.6c-.1.2-.2.2-.4.1a5.4 5.4 0 0 1-2.7-2.3c-.2-.4.2-.3.5-1 .1-.1 0-.2 0-.4L6 4.9c-.2-.4-.3-.3-.5-.3h-.4a.7.7 0 0 0-.5.2 2 2 0 0 0-.7 1.6 3.6 3.6 0 0 0 .8 2 8 8 0 0 0 3.1 2.7c1.1.5 1.6.5 2.2.4a1.9 1.9 0 0 0 1.2-.8 1.5 1.5 0 0 0 .1-.9c0-.1-.2-.1-.4-.2z"/></svg>
+        </span>
+        <span><a class="wa-inline" href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94%20I%20have%20a%20question%20about%20today%E2%80%99s%20bake.">077 693 1830 on WhatsApp</a><br>quickest way to reach the bench</span>
       </li>
     </ul>
   </div>
@@ -730,7 +760,8 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
       <ul>
         <li>14 Mill Row, corner of Beck Street</li>
         <li><a href="mailto:hello@melitheasbakes.com">hello@melitheasbakes.com</a></li>
-        <li><a href="tel:+15550184402">(555) 018 4402</a></li>
+        <li><a href="tel:+263776931830">+263 77 693 1830</a></li>
+        <li><a href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94">Message us on WhatsApp</a></li>
       </ul>
     </div>
     <div>
@@ -766,12 +797,17 @@ footer{background:var(--kraft);background-image:var(--grain);color:var(--paper);
   </div>
 </footer>
 
+<a class="wa-bubble" id="wabubble" href="https://wa.me/263776931830?text=Hi%20Melithea%E2%80%99s%20Bakes%20%E2%80%94" aria-label="Message Melithea's Bakes on WhatsApp">
+  <svg width="21" height="21" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a7.9 7.9 0 0 0-6.8 12L0 16l4.2-1.1A8 8 0 1 0 8 0zm0 14.6a6.6 6.6 0 0 1-3.4-.9l-.2-.2-2.5.7.7-2.4-.2-.3A6.6 6.6 0 1 1 8 14.6zm3.6-4.9c-.2-.1-1.2-.6-1.3-.6-.2-.1-.3-.1-.4.1l-.6.6c-.1.2-.2.2-.4.1a5.4 5.4 0 0 1-2.7-2.3c-.2-.4.2-.3.5-1 .1-.1 0-.2 0-.4L6 4.9c-.2-.4-.3-.3-.5-.3h-.4a.7.7 0 0 0-.5.2 2 2 0 0 0-.7 1.6 3.6 3.6 0 0 0 .8 2 8 8 0 0 0 3.1 2.7c1.1.5 1.6.5 2.2.4a1.9 1.9 0 0 0 1.2-.8 1.5 1.5 0 0 0 .1-.9c0-.1-.2-.1-.4-.2z"/></svg>
+  <span>WhatsApp us</span>
+</a>
+
 <div class="tray" id="tray">
   <div>
     <div class="lbl" id="traylbl">nothing yet</div>
     <div class="amt" id="trayamt">$0</div>
   </div>
-  <button id="checkout">check out</button>
+  <a class="go" id="checkout" href="https://wa.me/263776931830" target="_blank" rel="noopener">check out</a>
 </div>
 
 <script>
@@ -795,20 +831,38 @@ document.querySelectorAll('.peekbtn').forEach(b =>
 document.querySelectorAll('.shut').forEach(b =>
   b.addEventListener('click', () => b.closest('.card').classList.remove('peek')));
 
+/* ══ where the orders go ══ */
+const WA_NUMBER = '263776931830';
+const waUrl = text => 'https://wa.me/' + WA_NUMBER + (text ? '?text=' + encodeURIComponent(text) : '');
+
+function orderText(){
+  return 'Hi Melithea’s Bakes — I’d like to order:\n\n'
+    + BOX.items.map(i => '• ' + i.qty + ' × ' + i.name + ' — $' + (i.price * i.qty)).join('\n')
+    + '\n\nAll in: $' + BOX.sum
+    + '\n\nName:\nCollect or delivery:\nWhen for:';
+}
+
 /* ══ the box — kept in step with the other pages ══ */
 const BOX = (function(){
   const KEY = 'melitheas-box';
-  let s = {n:0, sum:0};
+  const sound = i => i && typeof i.name === 'string'
+    && typeof i.price === 'number' && typeof i.qty === 'number' && i.qty > 0;
+  let items = [];
   try{
     const raw = JSON.parse(localStorage.getItem(KEY));
-    if(raw && typeof raw.n === 'number' && typeof raw.sum === 'number') s = raw;
+    if(Array.isArray(raw)) items = raw.filter(sound);
   }catch(e){}
-  const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} };
+  const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(items)); }catch(e){} };
   return {
-    get n(){ return s.n; },
-    get sum(){ return s.sum; },
-    add(count, amount){ s.n += count; s.sum += amount; save(); },
-    clear(){ s = {n:0, sum:0}; save(); }
+    get items(){ return items.slice(); },
+    get n(){ return items.reduce((t, i) => t + i.qty, 0); },
+    get sum(){ return items.reduce((t, i) => t + i.price * i.qty, 0); },
+    add(name, price, qty){
+      const line = items.find(i => i.name === name && i.price === price);
+      if(line) line.qty += qty; else items.push({name, price, qty});
+      save();
+    },
+    clear(){ items = []; save(); }
   };
 })();
 
@@ -818,12 +872,14 @@ function paintBox(){
   document.getElementById('traylbl').textContent =
     BOX.n === 0 ? 'nothing yet' : BOX.n === 1 ? '1 thing in your box' : BOX.n + ' things in your box';
   document.getElementById('trayamt').textContent = '$' + BOX.sum;
+  document.getElementById('checkout').href = BOX.n ? waUrl(orderText()) : waUrl('');
 }
 paintBox();
 
 document.querySelectorAll('.add').forEach(btn => {
   btn.addEventListener('click', () => {
-    BOX.add(1, parseFloat(btn.dataset.price));
+    const card = btn.closest('.card');
+    BOX.add(card.querySelector('h3').textContent.trim(), parseFloat(btn.dataset.price), 1);
     paintBox();
     tray.classList.add('up');
     btn.classList.add('done'); btn.textContent = '✓ in the box';
@@ -832,13 +888,26 @@ document.querySelectorAll('.add').forEach(btn => {
 });
 document.getElementById('navbox').addEventListener('click', () => tray.classList.add('up'));
 
-document.getElementById('checkout').addEventListener('click', function(){
-  if(BOX.n === 0){ document.getElementById('traylbl').textContent = 'nothing in it yet'; return; }
-  document.getElementById('traylbl').textContent = 'boxed and waiting';
-  this.textContent = '✓ ordered';
-  BOX.clear();
-  document.getElementById('navcnt').textContent = '0';
-  setTimeout(() => { this.textContent = 'check out'; tray.classList.remove('up'); paintBox(); }, 2600);
+document.getElementById('checkout').addEventListener('click', function(e){
+  if(BOX.n === 0){ e.preventDefault(); document.getElementById('traylbl').textContent = 'nothing in it yet'; return; }
+  const go = this;
+  document.getElementById('traylbl').textContent = 'sent to WhatsApp';
+  go.textContent = '✓ sent';
+  /* emptying happens after the click has been handed to the browser — changing
+     an anchor's href inside its own click handler would redirect the click */
+  setTimeout(() => {
+    BOX.clear();
+    go.classList.add('is-off');
+    go.href = waUrl('');
+    document.getElementById('navcnt').textContent = '0';
+    document.getElementById('trayamt').textContent = '$0';
+  }, 0);
+  setTimeout(() => {
+    go.classList.remove('is-off');
+    go.textContent = 'check out';
+    tray.classList.remove('up');
+    paintBox();
+  }, 2600);
 });
 
 /* ══ gentle anchor scrolling, only where it's asked for ══ */

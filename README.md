@@ -26,6 +26,25 @@ Opening the files directly with `file://` works too, though the shared box (belo
 `localStorage`, which some browsers withhold from `file://` pages. The code degrades
 quietly if that happens — the box just stops carrying between pages.
 
+## Orders go to WhatsApp
+
+There is no backend. Every order path ends in a pre-filled WhatsApp message to
+**+263 77 693 1830**, and the customer sends it themselves:
+
+- **"Check out"** on the home page and the tart page writes the box out line by line —
+  quantity, item, price, total — then asks for a name, collection or delivery, and when
+  it's needed.
+- **"Send it on WhatsApp"** in the cake builder sends the whole docket: size, sponge,
+  filling, finish with each surcharge, what's written on top, the total and the 72-hour
+  lead time.
+- The green bubble bottom-left of every page, the "come find us" block, the footers and
+  two of the bench notes open an ordinary chat with a relevant opening line.
+
+The number lives in one place per page: `const WA_NUMBER = '263776931830'` in the script,
+and the `href` of the static links. It is the international form with no `+` and no
+leading zero, which is what `wa.me` requires. **If the number changes, update both** —
+`grep -rn 'wa.me\|WA_NUMBER\|tel:' *.html` finds every occurrence.
+
 ## How it fits together
 
 **Filter deep links.** The shop grid on the home page filters by category. Any page can
@@ -34,11 +53,13 @@ one of `all`, `cake`, `cupcake`, `loaf` or `small`. The home page reads that has
 and on `hashchange`, sets the matching chip and scrolls to the shop. Unknown categories
 are ignored rather than blanking the grid.
 
-**The box.** The item count and running total live in `localStorage` under
-`melitheas-box`, so adding a tart on the product page and then going back to the shop
-shows the same count in the top bar. Every read and write is wrapped in a `try` so a
-blocked storage API can't take the page down. "Check out" clears the box; it does not
-talk to a server.
+**The box.** The contents live in `localStorage` under `melitheas-box` as
+`[{name, price, qty}]`, so adding a tart on the product page and then going back to the
+shop shows the same count in the top bar — and checkout can name every line in the
+WhatsApp message. Lines with the same name and price merge. Counts and totals are
+derived, never stored. Every read and write is wrapped in a `try` so a blocked storage
+API can't take the page down, and anything that isn't a well-formed line is dropped on
+read.
 
 **The cake builder.** `DATA` at the top of the script holds the sizes, sponges, fillings
 and finishes — name, note, price and swatch colour. Everything else derives from it: the
@@ -51,8 +72,8 @@ stack behind each one, so the site still reads correctly offline or with the CDN
 ## Conventions
 
 - Colours come from the CSS custom properties in `:root` — `--jam`, `--butter`,
-  `--kraft`, `--paper`, `--ink`, `--pistachio`, `--plum`. Use them instead of new hex
-  values so the three pages stay in step.
+  `--kraft`, `--paper`, `--ink`, `--pistachio`, `--plum`, plus `--wa`/`--wa-dk` for
+  WhatsApp. Use them instead of new hex values so the three pages stay in step.
 - Illustrations are inline SVG, no image files.
 - Prices and stock counts are duplicated between the home page cards and the product
   page. If one changes, change the other — the lemon curd tart is currently $28 with
